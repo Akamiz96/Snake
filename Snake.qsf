@@ -466,5 +466,10 @@ set_global_assignment -name VHDL_FILE pantalla_comienzo.vhd
 set_global_assignment -name VHDL_FILE score_image.vhd
 set_global_assignment -name VHDL_FILE heart_image.vhd
 set_global_assignment -name VHDL_FILE number_image.vhd
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name VHDL_FILE fsm_snake_food.vhd
+set_global_assignment -name VHDL_FILE rand.vhd
+set_global_assignment -name VHDL_FILE my_dff_score.vhd
+set_global_assignment -name VHDL_FILE rand_tb.vhd
+set_global_assignment -name VHDL_FILE score_counter.vhd
 set_global_assignment -name SLD_FILE db/SignalTap_Control_auto_stripped.stp
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
