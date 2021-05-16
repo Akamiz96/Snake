@@ -14,7 +14,7 @@ ARCHITECTURE testbench OF rand_tb IS
 	SIGNAL	max_tick_tb			: 	 	STD_LOGIC;
 	SIGNAL	min_tick_tb			: 	 	STD_LOGIC;
 	SIGNAL	counter_rand_one_tb			:		STD_LOGIC_VECTOR(9 DOWNTO 0);
-	SIGNAL	counter_rand_two_tb			:		STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL	counter_rand_two_tb			:		STD_LOGIC_VECTOR(8 DOWNTO 0);
 ---------------------------------------------------------
 BEGIN 
 	--CLOCK GENERATION:------------------------

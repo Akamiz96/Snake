@@ -6,12 +6,12 @@ ENTITY score_counter IS
     PORT(           clk              :	IN		STD_LOGIC;    
                     rst              :	IN		STD_LOGIC;
 						  ena					 :	IN		STD_LOGIC;
-                    score            :	OUT 	STD_LOGIC_VECTOR(17 DOWNTO 0));
+                    score            :	OUT 	STD_LOGIC_VECTOR(13 DOWNTO 0));
 END ENTITY score_counter;
 -------------------------------------
 ARCHITECTURE behaviour OF score_counter IS
-        SIGNAL     d_signal             :STD_LOGIC_VECTOR(17 DOWNTO 0);
-		  SIGNAL     q_signal             :STD_LOGIC_VECTOR(17 DOWNTO 0);
+        SIGNAL     d_signal             :STD_LOGIC_VECTOR(13 DOWNTO 0);
+		  SIGNAL     q_signal             :STD_LOGIC_VECTOR(13 DOWNTO 0);
 		  SIGNAL     rst_signal           :STD_LOGIC;
 BEGIN
 	 d_signal <= STD_LOGIC_VECTOR(unsigned(q_signal)+1);
