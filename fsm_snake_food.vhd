@@ -5,8 +5,8 @@ USE ieee.std_logic_1164.all;
 ENTITY fsm_snake_food IS
 	PORT	(	clk				:	IN		STD_LOGIC;
 				rst				:	IN		STD_LOGIC;
-				counter_rand_one		:	IN 	STD_LOGIC_VECTOR(N_rand_one-1 DOWNTO 0);
-				counter_rand_two		:	IN 	STD_LOGIC_VECTOR(N_rand_two-1 DOWNTO 0);
+				counter_rand_one		:	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
+				counter_rand_two		:	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 
 
 				new_data			: 	IN 	STD_LOGIC;

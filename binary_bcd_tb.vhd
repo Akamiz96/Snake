@@ -7,8 +7,8 @@ ENTITY binary_bcd_tb IS
 END ENTITY binary_bcd_tb;
 ---------------------------------------------------------
 ARCHITECTURE testbench OF binary_bcd_tb IS
-	SIGNAL	num_bin_tb	:		STD_LOGIC_VECTOR(17 downto 0); --220397 --11 0101 1100 1110 1101
-   SIGNAL	num_bcd_tb	: 		STD_LOGIC_VECTOR(23 downto 0);
+	SIGNAL	num_bin_tb	:		STD_LOGIC_VECTOR(13 downto 0); --220397 --11 0101 1100 1110 1101
+   SIGNAL	num_bcd_tb	: 		STD_LOGIC_VECTOR(15 downto 0);
 ---------------------------------------------------------
 BEGIN 
 	DUT: ENTITY work.binary_bcd
@@ -18,7 +18,7 @@ BEGIN
 tesVectorGenerator: PROCESS
 
 	BEGIN
-		num_bin_tb <= "110101110011101101";
+		num_bin_tb <= "10010010111001";
 		WAIT;
 	END PROCESS tesVectorGenerator;
 	

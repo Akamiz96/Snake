@@ -4,7 +4,7 @@ use IEEE.NUMERIC_STD.all;
 ----------------------------------------
 ENTITY rand IS
 	GENERIC (N_rand_one			:	INTEGER	:=	10;
-				N_rand_two			:	INTEGER	:=	10); 
+				N_rand_two			:	INTEGER	:=	9); 
 	PORT	  (clk			:	IN		STD_LOGIC;
 				rst			:	IN 	STD_LOGIC;
 				ena			:	IN 	STD_LOGIC;
@@ -16,8 +16,6 @@ ENTITY rand IS
 END ENTITY;
 ----------------------------------------
 ARCHITECTURE structural OF rand IS 
-	CONSTANT ZEROS		:	STD_LOGIC_VECTOR(N_rand_one-1 DOWNTO 0)	:=	(OTHERS => '0');
-
 	SIGNAL load_one_s	:	STD_LOGIC	:= '0';
 	SIGNAL load_two_s	:	STD_LOGIC	:= '0';
 	SIGNAL up_one_s		:	STD_LOGIC	:= '1';
@@ -31,16 +29,16 @@ BEGIN
 	counter_rand_one <= counter_rand_one_s;
 	counter_rand_two <= counter_rand_two_s;
 
-	load_one_s	<=	'1' WHEN counter_rand_one_s = "1001000100"	ELSE 
+	load_one_s	<=	'1' WHEN counter_rand_one_s = "111001100"	ELSE 
 					'0';
 
-	load_two_s	<=	'1' WHEN counter_rand_two_s = "0000000000"	ELSE 
+	load_two_s	<=	'1' WHEN counter_rand_two_s = "000010100"	ELSE 
 					'0';
 
-	max_tick	<=	'1' WHEN counter_rand_one_s = "1001000100"	ELSE 
+	max_tick	<=	'1' WHEN counter_rand_one_s = "111001100"	ELSE 
 					'0';
 
-	min_tick	<=	'1' WHEN counter_rand_two_s = "0000000000"	ELSE 
+	min_tick	<=	'1' WHEN counter_rand_two_s = "000010100"	ELSE 
 					'0';
 
 	CNTR_1: 	ENTITY work.univ_bin_counter
@@ -51,7 +49,7 @@ BEGIN
 								syn_clr	=> syn_clr,
 								load	=> load_one_s,
 								up	=> up_one_s,
-								d	=> ZEROS,
+								d	=> "0000010100",
 								max_tick	=> max_tick_s,
 								min_tick	=> min_tick_s,
 								counter	=> counter_rand_one_s);
@@ -64,7 +62,7 @@ BEGIN
 								syn_clr	=> syn_clr,
 								load	=> load_two_s,
 								up	=> up_two_s,
-								d	=> "1001000100",
+								d	=> "111001100",
 								max_tick	=> max_tick_s,
 								min_tick	=> min_tick_s,
 								counter	=> counter_rand_two_s);

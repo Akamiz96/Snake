@@ -26,8 +26,8 @@ ARCHITECTURE rtl OF univ_bin_counter IS
 BEGIN 
 	count_next	<=	ZEROS 			 WHEN syn_clr = '1'					ELSE 
 						UNSIGNED(d)		 WHEN load = '1'						ELSE
-						count_s + 1		 WHEN	(ena = '1' AND up = '1') 	ELSE 
-						count_s - 1		 WHEN	(ena = '1' AND up = '0') 	ELSE 
+						count_s + 5		 WHEN	(ena = '1' AND up = '1') 	ELSE 
+						count_s - 5		 WHEN	(ena = '1' AND up = '0') 	ELSE 
 						count_s;
 	
 	PROCESS(clk,rst)
