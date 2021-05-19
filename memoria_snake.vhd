@@ -16,6 +16,8 @@ ENTITY memoria_snake IS
 				wr						:	IN 	STD_LOGIC;
 				data_in				:  IN 	STD_LOGIC_VECTOR(13 DOWNTO 0);
 				data_out          :  OUT	STD_LOGIC_VECTOR(13 DOWNTO 0);
+				cabeza_x				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				cabeza_y				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 	);
 END ENTITY memoria_snake;
 ARCHITECTURE structural OF memoria_snake IS
@@ -40,11 +42,15 @@ ARCHITECTURE structural OF memoria_snake IS
 			array_reg(to_integer(unsigned(40)))(to_integer(unsigned(60))) <= '1';
 			wr <= '1';
 			data_out <= STD_LOGIC_VECTOR(40, 14) & STD_LOGIC_VECTOR(60, 14);
+			cabeza_x <= STD_LOGIC_VECTOR(60, 14);
+			cabeza_y <= STD_LOGIC_VECTOR(40, 14);
 		ELSE
 			IF(max_tick = '1') THEN
 				array_reg(to_integer(unsigned(y_in)))(to_integer(unsigned(x_in))) <= '1';
 				wr <= '1';
 				data_out <= x_in & y_in;
+				cabeza_x <= x_in
+				cabeza_y <= y_in;
 				IF(comida = '0') THEN
 					rd <= '1';
 					x  <= data_in(13 DOWNTO 7);
