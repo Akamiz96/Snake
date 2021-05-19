@@ -6,7 +6,12 @@ USE IEEE.NUMERIC_STD.all;
 ENTITY pantalla_comienzo IS
 	PORT	(	clk 					:  IN 	STD_LOGIC;
 				pos_x, pos_y		: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0)
+				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0);
+				unidades 			:  IN		STD_LOGIC_VECTOR(3 downto 0);
+				decenas 				:  IN 	STD_LOGIC_VECTOR(3 downto 0);
+				centenas 			:  IN  	STD_LOGIC_VECTOR(3 downto 0);
+				miles 				:  IN		STD_LOGIC_VECTOR(3 downto 0);
+				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0)
 	);
 END ENTITY pantalla_comienzo;
 ARCHITECTURE structural OF pantalla_comienzo IS
@@ -89,6 +94,16 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 				R <= "1111";
 				G <= "1111";
 				B <= "1111";
+			-- Borde exterior	
+			ELSIF (pos_y>y_1 OR pos_y<y_2 OR pos_x<x_1 OR pos_x>x_2) THEN
+				R <= "1111";
+				G <= "1111";
+				B <= "1111";
+			-- Área de juego
+			ELSIF (pos_x>x_juego_1 AND pos_x<x_juego_2_5 AND pos_y>y_titulo AND pos_y<y_juego_5) THEN 
+				R <= "1111";
+				G <= "0000";
+				B <= "0000";
 			-- Espacio titulo
 			ELSIF (pos_x<=x_juego_2 AND pos_x>=x_juego_1_5 AND pos_y>=y_2 AND pos_y<y_titulo_5) THEN 
 			-- Espacio letras
@@ -111,11 +126,6 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 						B <= "0000";
 					END IF;
 				END IF;
-			-- Borde exterior	
-			ELSIF (pos_y>y_1 OR pos_y<y_2 OR pos_x<x_1 OR pos_x>x_2) THEN
-				R <= "1111";
-				G <= "1111";
-				B <= "1111";
 			ELSE
 				R <= "0000";
 				G <= "0000";
@@ -149,6 +159,11 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 							pos_y 	=> pos_y,
 							R 	=> R_number,
 							G 	=> G_number,
-							B 	=> B_number);
+							B 	=> B_number,
+							unidades => unidades,
+							decenas => decenas,
+							centenas => centenas,
+							miles => miles,
+							decenas_miles => decenas_miles);
 							
 END ARCHITECTURE structural;

@@ -16,7 +16,8 @@ ENTITY prueba_VGA IS
 				column4			:	OUT	STD_LOGIC;
 				VGA_HS 						:  OUT STD_LOGIC;
 				VGA_VS 						:	OUT STD_LOGIC;
-				VGA_R, VGA_G, VGA_B 		: 	OUT STD_LOGIC_VECTOR(3 DOWNTO 0)
+				VGA_R, VGA_G, VGA_B 		: 	OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+				enter 		:  IN 	STD_LOGIC_VECTOR(3 downto 0)
 				
 	);
 END ENTITY prueba_VGA;
@@ -77,7 +78,12 @@ BEGIN
 						pos_y 	=> pos_out_y_s,
 						R 			=> R_in_s,
 						G 			=> G_in_s,
-						B 			=> B_in_s);	
+						B 			=> B_in_s,
+						unidades => enter,
+						decenas => enter,
+						centenas => enter,
+						miles => enter,
+						decenas_miles => enter);	
 	
 	
 	

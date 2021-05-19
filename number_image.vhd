@@ -8,7 +8,12 @@ ENTITY number_image IS
 				 ADDR_WIDTH: INTEGER := 3);
 	PORT	(	limite_x, limite_y:	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				pos_x, pos_y		: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0)
+				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0);
+				unidades 			:  IN		STD_LOGIC_VECTOR(3 downto 0);
+				decenas 				:  IN 	STD_LOGIC_VECTOR(3 downto 0);
+				centenas 			:  IN  	STD_LOGIC_VECTOR(3 downto 0);
+				miles 				:  IN		STD_LOGIC_VECTOR(3 downto 0);
+				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0)
 	);
 END ENTITY number_image;
 ARCHITECTURE structural OF number_image IS
@@ -41,11 +46,11 @@ ARCHITECTURE structural OF number_image IS
 	
 	SIGNAL number_score	: 	STD_LOGIC_VECTOR(16 DOWNTO 0);
 	
-	SIGNAL unidades 		: STD_LOGIC_VECTOR(3 downto 0) := "0001";
-	SIGNAL decenas 		: STD_LOGIC_VECTOR(3 downto 0) := "0110";
-	SIGNAL centenas 		: STD_LOGIC_VECTOR(3 downto 0) := "0001";
-	SIGNAL miles 			: STD_LOGIC_VECTOR(3 downto 0) := "0011";
-	SIGNAL decenas_miles : STD_LOGIC_VECTOR(3 downto 0) := "0101";
+--	SIGNAL unidades 		: STD_LOGIC_VECTOR(3 downto 0) := "0001";
+--	SIGNAL decenas 		: STD_LOGIC_VECTOR(3 downto 0) := "0110";
+--	SIGNAL centenas 		: STD_LOGIC_VECTOR(3 downto 0) := "0001";
+--	SIGNAL miles 			: STD_LOGIC_VECTOR(3 downto 0) := "0011";
+--	SIGNAL decenas_miles : STD_LOGIC_VECTOR(3 downto 0) := "0101";
 	
 
  BEGIN 

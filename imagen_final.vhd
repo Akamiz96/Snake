@@ -7,7 +7,12 @@ ENTITY imagen_final IS
 	PORT	(	clk 					:  IN 	STD_LOGIC;
 				x, y	 				: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				pos_x, pos_y		: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0)
+				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0);
+				unidades 			:  IN		STD_LOGIC_VECTOR(3 downto 0);
+				decenas 				:  IN 	STD_LOGIC_VECTOR(3 downto 0);
+				centenas 			:  IN  	STD_LOGIC_VECTOR(3 downto 0);
+				miles 				:  IN		STD_LOGIC_VECTOR(3 downto 0);
+				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0)
 	);
 END ENTITY imagen_final;
 ARCHITECTURE structural OF imagen_final IS
@@ -29,6 +34,11 @@ ARCHITECTURE structural OF imagen_final IS
 							pos_y 	=> pos_y,
 							R 	=> R_comienzo,
 							G 	=> G_comienzo,
-							B 	=> B_comienzo);
+							B 	=> B_comienzo,
+							unidades => unidades,
+							decenas => decenas,
+							centenas => centenas,
+							miles => miles,
+							decenas_miles => decenas_miles);
 	
 END ARCHITECTURE structural;
