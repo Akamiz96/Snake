@@ -9,10 +9,10 @@ ENTITY movimiento IS
 				max_tick			:  IN 	STD_LOGIC;
 				selX				:  IN 	STD_LOGIC_VECTOR(1 DOWNTO 0);
 				selY				:  IN 	STD_LOGIC_VECTOR(1 DOWNTO 0);
-				x_in				:  IN    STD_LOGIC_VECTOR(9 DOWNTO 0);
-				y_in				:  IN    STD_LOGIC_VECTOR(9 DOWNTO 0);
-				x_out				:  OUT   STD_LOGIC_VECTOR(9 DOWNTO 0);
-				y_out				:  OUT   STD_LOGIC_VECTOR(9 DOWNTO 0);
+				x_in				:  IN    STD_LOGIC_VECTOR(7 DOWNTO 0);
+				y_in				:  IN    STD_LOGIC_VECTOR(7 DOWNTO 0);
+				x_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
+				y_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
 				
 END ENTITY movimiento;
 ARCHITECTURE RTL OF movimiento IS

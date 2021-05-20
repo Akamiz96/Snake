@@ -11,10 +11,10 @@ ENTITY memoria_snake IS
 				max_tick				:  IN 	STD_LOGIC;
 				x_in 					: 	IN		STD_LOGIC_VECTOR(9 DOWNTO 0);
 				y_in 					: 	IN		STD_LOGIC_VECTOR(9 DOWNTO 0);
-				comida				:  IN 	STD_LOGIC;				
-				rd						:	IN 	STD_LOGIC;
-				wr						:	IN 	STD_LOGIC;
-				data_in				:  IN 	STD_LOGIC_VECTOR(13 DOWNTO 0);
+				comida				:  IN 	STD_LOGIC;
+				data_in				:  IN 	STD_LOGIC_VECTOR(13 DOWNTO 0);								
+				rd						:	OUT 	STD_LOGIC;
+				wr						:	OUT 	STD_LOGIC;
 				data_out          :  OUT	STD_LOGIC_VECTOR(13 DOWNTO 0);
 				cabeza_x				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 				cabeza_y				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -29,10 +29,6 @@ ARCHITECTURE structural OF memoria_snake IS
 	SIGNAL mem				: 	STD_LOGIC;
 	SIGNAL x 				:  STD_LOGIC_VECTOR(6 DOWNTO 0);
 	SIGNAL y 				:  STD_LOGIC_VECTOR(6 DOWNTO 0);
-	SIGNAL x_cola : INTEGER RANGE 0 to 119;
-	SIGNAL y_cola : INTEGER RANGE 0 to 79;
-	SIGNAL x_cola_nx : INTEGER RANGE 0 to 119;
-	SIGNAL y_cola_nx : INTEGER RANGE 0 to 79;
 
  BEGIN 
 	
@@ -49,7 +45,7 @@ ARCHITECTURE structural OF memoria_snake IS
 				array_reg(to_integer(unsigned(y_in)))(to_integer(unsigned(x_in))) <= '1';
 				wr <= '1';
 				data_out <= x_in & y_in;
-				cabeza_x <= x_in
+				cabeza_x <= x_in;
 				cabeza_y <= y_in;
 				IF(comida = '0') THEN
 					rd <= '1';
