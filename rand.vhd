@@ -4,7 +4,7 @@ use IEEE.NUMERIC_STD.all;
 ----------------------------------------
 ENTITY rand IS
 	GENERIC (N_rand_one			:	INTEGER	:=	10;
-				N_rand_two			:	INTEGER	:=	9); 
+				N_rand_two			:	INTEGER	:=	10); 
 	PORT	  (clk			:	IN		STD_LOGIC;
 				rst			:	IN 	STD_LOGIC;
 				ena			:	IN 	STD_LOGIC;
@@ -29,19 +29,19 @@ BEGIN
 	counter_rand_one <= counter_rand_one_s;
 	counter_rand_two <= counter_rand_two_s;
 
-	load_one_s	<=	'1' WHEN counter_rand_one_s = "111001100"	ELSE 
+	load_one_s	<=	'1' WHEN counter_rand_one_s = "1001100010"	ELSE 
 					'0';
 
-	load_two_s	<=	'1' WHEN counter_rand_two_s = "000010100"	ELSE 
+	load_two_s	<=	'1' WHEN counter_rand_two_s = "0000110111"	ELSE 
 					'0';
 
-	max_tick	<=	'1' WHEN counter_rand_one_s = "111001100"	ELSE 
+	max_tick	<=	'1' WHEN counter_rand_one_s = "1001100010"	ELSE 
 					'0';
 
-	min_tick	<=	'1' WHEN counter_rand_two_s = "000010100"	ELSE 
+	min_tick	<=	'1' WHEN counter_rand_two_s = "0000110111"	ELSE 
 					'0';
 
-	CNTR_1: 	ENTITY work.univ_bin_counter
+	CNTR_1: 	ENTITY work.bin_counter_rand
 				GENERIC  MAP (N	=> N_rand_one)
 				PORT MAP(  	clk	=> clk,
 								rst	=> rst,
@@ -49,12 +49,13 @@ BEGIN
 								syn_clr	=> syn_clr,
 								load	=> load_one_s,
 								up	=> up_one_s,
+								sel => '1',
 								d	=> "0000010100",
 								max_tick	=> max_tick_s,
 								min_tick	=> min_tick_s,
 								counter	=> counter_rand_one_s);
 
-	CNTR_2: 	ENTITY work.univ_bin_counter
+	CNTR_2: 	ENTITY work.bin_counter_rand
 				GENERIC  MAP (N	=> N_rand_two)
 				PORT MAP(  	clk	=> clk,
 								rst	=> rst,
@@ -62,7 +63,8 @@ BEGIN
 								syn_clr	=> syn_clr,
 								load	=> load_two_s,
 								up	=> up_two_s,
-								d	=> "111001100",
+								sel => '0',
+								d	=> "0111001100",
 								max_tick	=> max_tick_s,
 								min_tick	=> min_tick_s,
 								counter	=> counter_rand_two_s);

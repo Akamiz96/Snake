@@ -7,14 +7,13 @@ ENTITY score_tb IS
 END ENTITY score_tb;
 ---------------------------------------------------------
 ARCHITECTURE testbench OF score_tb IS
-	SIGNAL			puntaje_tb			:   	STD_LOGIC_VECTOR(13 DOWNTO 0);
 	SIGNAL			clk_tb				: 	 	STD_LOGIC := '0';
 	SIGNAL			rst_tb				: 	 	STD_LOGIC:= '1';  
 	SIGNAL			ena_score_tb			:   	STD_LOGIC;
-	SIGNAL			unidades_tb			:  	STD_LOGIC_VECTOR(6 DOWNTO 0);
-	SIGNAL			decenas_tb			:  	STD_LOGIC_VECTOR(6 DOWNTO 0);
-	SIGNAL			centenas_tb			: 		STD_LOGIC_VECTOR(6 DOWNTO 0);
-	SIGNAL			unidades_miles_tb				:  	STD_LOGIC_VECTOR(6 DOWNTO 0);
+	SIGNAL			mem_unidades_tb			:  	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL			mem_decenas_tb			:  	STD_LOGIC_VECTOR(3	DOWNTO 0);
+	SIGNAL			mem_centenas_tb			: 		STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL			mem_unidades_miles_tb				:  	STD_LOGIC_VECTOR(3 DOWNTO 0);
 ---------------------------------------------------------
 BEGIN 
 
@@ -24,28 +23,18 @@ BEGIN
 	rst_tb <= '0' after 15ns;
 
 	DUT: ENTITY work.score
-		  PORT MAP(  	puntaje => puntaje_tb,
-							clk => clk_tb,
+		  PORT MAP(  	clk => clk_tb,
 							rst => rst_tb,
 							ena_score => ena_score_tb,
-							unidades => unidades_tb,
-							decenas => decenas_tb,
-							centenas => centenas_tb,
-							unidades_miles => unidades_miles_tb);	
+							mem_unidades => mem_unidades_tb,
+							mem_decenas => mem_decenas_tb,
+							mem_centenas => mem_centenas_tb,
+							mem_unidades_miles => mem_unidades_miles_tb);	
 				  
 tesVectorGenerator: PROCESS
 
 	BEGIN
-		puntaje_tb <= "10010010111001";
-		ena_score_tb <= '0';
-		WAIT FOR 50ns;
 		ena_score_tb <= '1';
-		WAIT FOR 20ns;
-		ena_score_tb <= '0';
-		WAIT FOR 40ns;
-		ena_score_tb <= '1';
-		WAIT FOR 40ns;
-		ena_score_tb <= '0';
 		WAIT;
 	END PROCESS tesVectorGenerator;
 END ARCHITECTURE testbench;
