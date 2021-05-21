@@ -14,20 +14,7 @@ ENTITY score IS
 END ENTITY score;
 -------------------------------------------------------------------------------
 ARCHITECTURE structural OF score IS
-	SIGNAL bcd0_s				   : STD_LOGIC_VECTOR(3 DOWNTO 0);
-	SIGNAL bcd1_s				   : STD_LOGIC_VECTOR(3 DOWNTO 0);
-	SIGNAL bcd2_s				   : STD_LOGIC_VECTOR(3 DOWNTO 0);
-	SIGNAL bcd3_s				   : STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL score_s				   : STD_LOGIC_VECTOR(13 DOWNTO 0);
-	
-	SIGNAL wr_en_s					: STD_LOGIC;
-	SIGNAL w_addr_s0				: STD_LOGIC_VECTOR(1 DOWNTO 0);
-	SIGNAL w_addr_s1				: STD_LOGIC_VECTOR(1 DOWNTO 0);
-	SIGNAL w_addr_s2				: STD_LOGIC_VECTOR(1 DOWNTO 0);
-	SIGNAL w_addr_s3				: STD_LOGIC_VECTOR(1 DOWNTO 0);
-	SIGNAL r_addr_s				: STD_LOGIC_VECTOR(1 DOWNTO 0);
-	SIGNAL w_data_s				: STD_LOGIC;
-	
 
 BEGIN	
 	

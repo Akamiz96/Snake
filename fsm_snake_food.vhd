@@ -7,16 +7,15 @@ ENTITY fsm_snake_food IS
 				rst				:	IN		STD_LOGIC;
 				start				:	IN		STD_LOGIC;
 				ena_food			:	IN		STD_LOGIC;
-				validacion_check :	IN		STD_LOGIC;
+				alive			:	IN		STD_LOGIC;
+				--Datos del random
 				counter_rand_one		:	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				counter_rand_two		:	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				ena_rand			:	OUT		STD_LOGIC;
+				--puntaje
 				ena_score		:	OUT		STD_LOGIC;
-				ena_validacion	:	OUT		STD_LOGIC;
-				x_val				:	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				y_val				:	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				ena_save_x		:	OUT		STD_LOGIC;
-				ena_save_y		:	OUT		STD_LOGIC;
+				--Guardar
+				ena_save		:	OUT		STD_LOGIC;
 				save_value_x			:	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				save_value_y			:	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0)
 	);
@@ -42,18 +41,16 @@ BEGIN
 	-------------------------------------------------------------
 	--                 UPPER SECTION OF FSM                    --
 	-------------------------------------------------------------
-	combinational: PROCESS(pr_state,start,ena_food,validacion_check)
+	combinational: PROCESS(pr_state,start,ena_food,alive)
 	BEGIN
 		CASE pr_state IS
 			WHEN waiting =>
 				IF(start='1') THEN
+					ena_score <= '0';
 					ena_rand <= '1';
 					IF(ena_food='1') THEN
 						x_aux <= counter_rand_one;
 						y_aux <= counter_rand_two;
-						x_val <= counter_rand_one;
-						y_val <= counter_rand_two;
-						ena_validacion <= '1';
 						nx_state <= validate;
 					ELSE
 						nx_state <= waiting;
@@ -62,17 +59,18 @@ BEGIN
 					nx_state <= waiting;
 				END IF;
 			WHEN validate =>
-				IF(validacion_check='1') THEN
+				ena_score <= '0';
+				IF(alive='0') THEN
 					nx_state <= save_food;
 				ELSE
 					nx_state <= waiting;
 				END IF;
 			WHEN save_food =>
-				ena_save_x <= '1';
-				ena_save_y <= '1';
+				ena_save <= '1';
 				save_value_x <= x_aux;
 				save_value_y <= y_aux;
 				ena_score <= '1';
+				nx_state <= waiting;
 		END CASE;
 	END PROCESS combinational;
 END ARCHITECTURE fsm;

@@ -12,12 +12,18 @@ ENTITY memoria_snake IS
 				x_in 					: 	IN		STD_LOGIC_VECTOR(9 DOWNTO 0);
 				y_in 					: 	IN		STD_LOGIC_VECTOR(9 DOWNTO 0);
 				comida				:  IN 	STD_LOGIC;
-				data_in				:  IN 	STD_LOGIC_VECTOR(13 DOWNTO 0);								
+				data_in				:  IN 	STD_LOGIC_VECTOR(13 DOWNTO 0);		
+				dato_x				:  IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				dato_y				:  IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				food_x				:  IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				food_y				:  IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);						
 				rd						:	OUT 	STD_LOGIC;
 				wr						:	OUT 	STD_LOGIC;
 				data_out          :  OUT	STD_LOGIC_VECTOR(13 DOWNTO 0);
 				cabeza_x				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-				cabeza_y				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0)
+				cabeza_y				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				dato_pintar			:  OUT 	STD_LOGIC
+				dato_comida			:  OUT 	STD_LOGIC
 	);
 END ENTITY memoria_snake;
 ARCHITECTURE structural OF memoria_snake IS
@@ -32,7 +38,7 @@ ARCHITECTURE structural OF memoria_snake IS
 
  BEGIN 
 	
-	sequential: PROCESS(clk)
+	sequential: PROCESS(clk, rst, max_tick)
 	BEGIN
 		IF (rst = '1') THEN
 			array_reg(to_integer(unsigned(40)))(to_integer(unsigned(60))) <= '1';
@@ -59,4 +65,7 @@ ARCHITECTURE structural OF memoria_snake IS
 		END IF;
 	END PROCESS sequential;
 	
+	dato_pintar <= array_reg(to_integer(unsigned(dato_y)))(to_integer(unsigned(dato_x)));
+	dato_pintar <= array_reg(to_integer(unsigned(food_y)))(to_integer(unsigned(food_x)))
+
 END ARCHITECTURE structural;
