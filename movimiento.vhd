@@ -12,7 +12,7 @@ ENTITY movimiento IS
 				x_in				:  IN    STD_LOGIC_VECTOR(7 DOWNTO 0);
 				y_in				:  IN    STD_LOGIC_VECTOR(7 DOWNTO 0);
 				x_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
-				y_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
+				y_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0));
 				
 END ENTITY movimiento;
 ARCHITECTURE RTL OF movimiento IS

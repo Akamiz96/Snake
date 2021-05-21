@@ -46,22 +46,6 @@ BEGIN
 						num_bcd(3 downto 0) => bcd0_s
 						);
 	
---	BCD0:  ENTITY work.bcd_to_7Seg
---		   PORT MAP(	entrada	=> bcd0_s,
---							segmento	=> unidades);
---							
---	BCD1:  ENTITY work.bcd_to_7Seg
---		   PORT MAP(	entrada	=> bcd1_s,
---							segmento	=> decenas);
---	
---	BCD2:  ENTITY work.bcd_to_7Seg
---		   PORT MAP(	entrada	=> bcd2_s,
---							segmento	=> centenas);
---	
---	BCD3:  ENTITY work.bcd_to_7Seg
---		   PORT MAP(	entrada	=> bcd3_s,
---							segmento	=> unidades_miles);
-	
    --Contador	
 	COUNTER: ENTITY work.score_counter      
 			PORT MAP(   clk     => clk,

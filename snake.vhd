@@ -8,7 +8,7 @@ ENTITY snake IS
 				rst					:  IN    STD_LOGIC;
 				max_tick				:  IN 	STD_LOGIC;
 				buttonUp, buttonDown, buttonLeft, buttonRight : IN STD_LOGIC;
-				comida				:  IN 	STD_LOGIC;
+				comida				:  IN 	STD_LOGIC
 				
 	);
 END ENTITY snake;
@@ -49,7 +49,7 @@ ARCHITECTURE structural OF snake IS
 				x_in			 =>   head_x,	
 				y_in			 =>   head_y,	
 				x_out			 =>	x_signal,	
-				y_out	       =>	y_signal,);
+				y_out	       =>	y_signal);
 	
 	mem : ENTITY work.memoria_snake
 	GENERIC MAP(DATA_WIDTH  =>   119

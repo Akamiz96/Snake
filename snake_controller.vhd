@@ -8,7 +8,7 @@ ENTITY snake_controller IS
 				max_tick			:  IN 	STD_LOGIC;
 				buttonUp, buttonDown, buttonLeft, buttonRight : IN STD_LOGIC;
 				selX				:  OUT 	STD_LOGIC_VECTOR(1 DOWNTO 0);
-				selY				:  OUT 	STD_LOGIC_VECTOR(1 DOWNTO 0);
+				selY				:  OUT 	STD_LOGIC_VECTOR(1 DOWNTO 0));
 				
 END ENTITY snake_controller;
 ----------------------------------------------------------------

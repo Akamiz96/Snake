@@ -17,7 +17,7 @@ ENTITY memoria_snake IS
 				wr						:	OUT 	STD_LOGIC;
 				data_out          :  OUT	STD_LOGIC_VECTOR(13 DOWNTO 0);
 				cabeza_x				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-				cabeza_y				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				cabeza_y				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0)
 	);
 END ENTITY memoria_snake;
 ARCHITECTURE structural OF memoria_snake IS
