@@ -22,7 +22,7 @@ ENTITY memoria_snake IS
 				data_out          :  OUT	STD_LOGIC_VECTOR(13 DOWNTO 0);
 				cabeza_x				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 				cabeza_y				:  OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-				dato_pintar			:  OUT 	STD_LOGIC
+				dato_pintar			:  OUT 	STD_LOGIC;
 				dato_comida			:  OUT 	STD_LOGIC
 	);
 END ENTITY memoria_snake;

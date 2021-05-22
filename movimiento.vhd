@@ -9,10 +9,13 @@ ENTITY movimiento IS
 				max_tick			:  IN 	STD_LOGIC;
 				selX				:  IN 	STD_LOGIC_VECTOR(1 DOWNTO 0);
 				selY				:  IN 	STD_LOGIC_VECTOR(1 DOWNTO 0);
+				food_x			: 	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				food_y			: 	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 				x_in				:  IN    STD_LOGIC_VECTOR(7 DOWNTO 0);
 				y_in				:  IN    STD_LOGIC_VECTOR(7 DOWNTO 0);
 				x_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
-				y_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0));
+				y_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0):
+				comida			: 	OUT 	STD_LOGIC);
 				
 END ENTITY movimiento;
 ARCHITECTURE RTL OF movimiento IS
@@ -54,5 +57,14 @@ BEGIN
 						 ena			=> max_tick,
 						 d				=> y,
 						 q				=> y_out);
+	
+	PROCESS(x_plusOne,x_minusOne,y_plusOne, y_minusOne)
+	BEGIN
+		IF (x = food_x AND y = food_y) THEN
+			comida <= '1';
+		ELSE 
+			comida <= '0';
+		END IF;
+	END PROCESS;
 	
 END ARCHITECTURE;	
