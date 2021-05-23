@@ -4,8 +4,8 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.all;
 -------------------------------------------------------------------------------
 ENTITY control_memory IS
-	PORT	(	clk 							:	IN  STD_LOGIC;
-				rst 							:	IN  STD_LOGIC;
+	PORT	(	clk 				:	IN  STD_LOGIC;
+				rst 				:	IN  STD_LOGIC;
 				input1			:	IN		STD_LOGIC;
 				input2			:	IN		STD_LOGIC;
 				input3			:	IN		STD_LOGIC;
@@ -14,17 +14,18 @@ ENTITY control_memory IS
 				column2			:	OUT	STD_LOGIC;
 				column3			:	OUT	STD_LOGIC;
 				column4			:	OUT	STD_LOGIC;
-				x_out 			: 	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				y_out 			: 	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0)
-				
+				x_add_s 			: 	OUT	STD_LOGIC;
+				y_add_s 			: 	OUT 	STD_LOGIC;
+				x_sub_s 			: 	OUT 	STD_LOGIC;
+				y_sub_s 			: 	OUT	STD_LOGIC				
 	);
 END ENTITY control_memory;
 
 ARCHITECTURE structural OF control_memory IS
-	SIGNAL x_add_s 		: STD_LOGIC;
-	SIGNAL y_add_s 		: STD_LOGIC;
-	SIGNAL x_sub_s 		: STD_LOGIC;
-	SIGNAL y_sub_s 		: STD_LOGIC;
+--	SIGNAL x_add_s 		: STD_LOGIC;
+--	SIGNAL y_add_s 		: STD_LOGIC;
+--	SIGNAL x_sub_s 		: STD_LOGIC;
+--	SIGNAL y_sub_s 		: STD_LOGIC;
 	
 	SIGNAL new_data_s		: STD_LOGIC;
 	
@@ -64,18 +65,7 @@ BEGIN
 						x_add 		=> x_add_s,
 						x_sub 		=> x_sub_s,
 						y_add 		=> y_add_s,
-						y_sub 		=> y_sub_s);
-	
-	ADDRMEM: ENTITY work.addr_mem
-	PORT MAP(		clk 			=> clk_25M,
-						rst			=> rst,
-						ena			=> ena_s,
-						x_add 		=> x_add_s,
-						x_sub 		=> x_sub_s,
-						y_add 		=> y_add_s,
-						y_sub 		=> y_sub_s,
-						x_out 		=> x_out,
-						y_out 		=> y_out);					
+						y_sub 		=> y_sub_s);					
 	
 	
 	

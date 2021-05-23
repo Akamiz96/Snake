@@ -40,22 +40,7 @@ ARCHITECTURE structural OF prueba_VGA IS
 	SIGNAL G_in_s 		: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL B_in_s 		: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	
-BEGIN
-
-	CONTROL:  ENTITY work.control_memory
-		   PORT MAP(	clk 		=> clk,
-							rst 		=> rst,
-							input1 	=> input1,
-							input2 	=> input2,
-							input3 	=> input3,
-							input4 	=> input4,
-							column1 	=> column1,
-							column2 	=> column2,
-							column3 	=> column3,
-							column4 	=> column4,
-							x_out 	=> x_out_s,
-							y_out 	=> y_out_s);
-						
+BEGIN						
 	
 	VGA: ENTITY work.VGA
 	PORT MAP(		clk 			=> clk,

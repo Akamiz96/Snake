@@ -24,7 +24,7 @@ BEGIN
 	-------------------------------------------------------------
 	--                 LOWER SECTION OF FSM                    --
 	-------------------------------------------------------------
-	sequential: PROCESS(clk,rst,ena_i)
+	sequential: PROCESS(clk,rst)
 	BEGIN
 		IF (rst = '1') THEN
 			pr_state	<=	derecha;
@@ -36,12 +36,12 @@ BEGIN
 	-------------------------------------------------------------
 	--                 UPPER SECTION OF FSM                    --
 	-------------------------------------------------------------
-	combinational: PROCESS(dir, max_tick)
+	combinational: PROCESS(direccion, max_tick)
 	BEGIN
 			
 		CASE pr_state IS
 			WHEN derecha =>
-				IF(max_tick = 1) THEN
+				IF(max_tick = '1') THEN
 					selX <= "01";
 					selY <= "11";
 					IF(direccion = "0010") THEN
@@ -55,7 +55,7 @@ BEGIN
 					--
 				END IF;
 			WHEN izquierda	=>
-				IF(max_tick = 1) THEN
+				IF(max_tick = '1') THEN
 					selX <= "10";
 					selY <= "11";
 					IF(direccion = "0010") THEN
@@ -69,7 +69,7 @@ BEGIN
 					--
 				END IF;
 			WHEN arriba =>
-				IF(max_tick = 1) THEN
+				IF(max_tick = '1') THEN
 					selX <= "11";
 					selY <= "10";
 					IF(direccion = "1000") THEN
@@ -83,7 +83,7 @@ BEGIN
 					--
 				END IF;
 			WHEN abajo =>
-				IF(max_tick = 1) THEN
+				IF(max_tick = '1') THEN
 					selX <= "11";
 					selY <= "01";
 					IF(direccion = "1000") THEN

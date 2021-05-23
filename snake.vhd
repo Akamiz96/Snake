@@ -36,13 +36,19 @@ ARCHITECTURE structural OF snake IS
 	SIGNAL ef			 : STD_LOGIC;
 	SIGNAL comida_sig	 : STD_LOGIC;
 	
+	SIGNAL max_tick_tb	:	STD_LOGIC;
+	SIGNAL ena_tb			:	STD_LOGIC := '1';
+	SIGNAL syn_tb			:	STD_LOGIC := '0';
+	SIGNAL min_tickRY_s	:	STD_LOGIC;
+	SIGNAL counterRY_s	:	STD_LOGIC_VECTOR(16 DOWNTO 0);
+	
 
  BEGIN 
 	
 	fsm : ENTITY work.snake_controller
 	PORT MAP(clk		    =>	clk,	
 				rst			 =>	rst,
-				max_tick		 =>	max_tick,
+				max_tick		 =>	max_tick_tb,
 				buttonUp     =>   buttonUp,
 				buttonDown   =>   buttonDown,
 				buttonLeft   =>   buttonLeft,
@@ -51,10 +57,10 @@ ARCHITECTURE structural OF snake IS
 				selY	       =>   selector_y);
 	
 	mov : ENTITY work.movimiento
-	GENERIC MAP(N			 =>   N);
+	GENERIC MAP(N			 =>   N)
 	PORT MAP(clk			 =>   clk,
 				rst			 =>	rst,	
-				max_tick		 => 	max_tick,	
+				max_tick		 => 	max_tick_tb,	
 				selX			 =>	selector_x,
 				selY			 =>	selector_y,
 				food_x		 =>   food_x,
@@ -67,13 +73,13 @@ ARCHITECTURE structural OF snake IS
 	
 	mem : ENTITY work.memoria_snake
 	GENERIC MAP(DATA_WIDTH  =>   DATA_WIDTH,
-				   ADDR_WIDTH  =>	  ADDR_WIDTH);
+				   ADDR_WIDTH  =>	  ADDR_WIDTH)
 	PORT MAP( clk			 =>	clk,				
 				 rst			 =>	rst,			
-				 max_tick	 =>	max_tick,		
+				 max_tick	 =>	max_tick_tb,		
 				 x_in 		 =>	x_signal,			
 				 y_in 		 =>	y_signal,		
-				 comida		 =>	comida,						
+				 comida		 =>	comida_sig,						
 				 data_in		 =>   data_rd,	
 				 dato_x		 =>	pintar_x,		
 				 dato_y		 =>	pintar_y,	
@@ -89,15 +95,24 @@ ARCHITECTURE structural OF snake IS
 	
 	memCir : ENTITY work.circular
 	GENERIC MAP(DATA_WIDTH => DATA_WIDTH2,
-				   ADDR_WIDTH => DATA_WIDTH2);
+				   ADDR_WIDTH => DATA_WIDTH2)
 	PORT MAP( clk			 =>	clk,	
 				 rst			 =>	rst,
 				 rd		    =>   rd_signal,	
 				 wr			 =>   wr_signal,
 				 w_data		 =>	data_wr,
-				 r_data		 =>	data_rd
+				 r_data		 =>	data_rd,
 				 full			 =>	ef,
 				 empty       =>	ef);
+				 
+	TMR: 		ENTITY work.timer_mov
+				PORT MAP(  	clk	=> clk,
+								rst	=> rst,
+								ena	=> ena_tb, 
+								syn_clr	=> syn_tb,
+								max_tick	=> max_tick_tb,
+								min_tick	=> min_tickRY_s,
+								counter	=> counterRY_s);
 	
 	
 END ARCHITECTURE structural;

@@ -14,7 +14,7 @@ ENTITY movimiento IS
 				x_in				:  IN    STD_LOGIC_VECTOR(7 DOWNTO 0);
 				y_in				:  IN    STD_LOGIC_VECTOR(7 DOWNTO 0);
 				x_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
-				y_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0):
+				y_out				:  OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
 				comida			: 	OUT 	STD_LOGIC);
 				
 END ENTITY movimiento;
@@ -28,32 +28,32 @@ ARCHITECTURE RTL OF movimiento IS
 BEGIN
 
 	------------------------
-	x_plusOne  <= unsigned(x_in) + 1;
-	x_minusOne <= unsigned(x_in) + 1;
+	x_plusOne  <= to_integer(unsigned(x_in)) + 1;
+	x_minusOne <= to_integer(unsigned(x_in)) + 1;
 	
-	y_plusOne  <= unsigned(y_in) + 1;
-	y_minusOne <= unsigned(y_in) + 1;	
+	y_plusOne  <= to_integer(unsigned(y_in)) + 1;
+	y_minusOne <= to_integer(unsigned(y_in)) + 1;	
 	------------------------
 	------------------------
-	x <= STD_LOGIC_VECTOR(x_plusOne)  WHEN selX = "01";
-		  STD_LOGIC_VECTOR(x_minusOne) WHEN selX = "10";
-		  x_in 					          WHEN OTHERS;
+	x <= STD_LOGIC_VECTOR(to_unsigned(x_plusOne,10))  WHEN selX = "01" ELSE 
+		  STD_LOGIC_VECTOR(to_unsigned(x_minusOne,10)) WHEN selX = "10" ELSE
+		  x_in;
 				
-	y <= STD_LOGIC_VECTOR(y_plusOne)  WHEN selY = "01";
-		  STD_LOGIC_VECTOR(y_minusOne) WHEN selY = "10";
-		  y_in 					          WHEN OTHERS;
+	y <= STD_LOGIC_VECTOR(to_unsigned(y_plusOne,10))  WHEN selY = "01" ELSE 
+		  STD_LOGIC_VECTOR(to_unsigned(y_minusOne,10)) WHEN selY = "10" ELSE
+		  y_in;
 				
 	regX : ENTITY work.my_reg
 		GENERIC MAP (MAX_WIDTH	=> N)
 		PORT MAP (	 clk			=> clk,
-						 rts			=> rst,
+						 rst			=> rst,
 						 ena			=> max_tick,
 						 d				=> x,
 						 q				=> x_out);
 	regY : ENTITY work.my_reg
 		GENERIC MAP (MAX_WIDTH	=> N)
 		PORT MAP (	 clk			=> clk,
-						 rts			=> rst,
+						 rst			=> rst,
 						 ena			=> max_tick,
 						 d				=> y,
 						 q				=> y_out);

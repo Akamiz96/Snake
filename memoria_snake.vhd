@@ -41,11 +41,11 @@ ARCHITECTURE structural OF memoria_snake IS
 	sequential: PROCESS(clk, rst, max_tick)
 	BEGIN
 		IF (rst = '1') THEN
-			array_reg(to_integer(unsigned(40)))(to_integer(unsigned(60))) <= '1';
+			array_reg(40)(60) <= '1';
 			wr <= '1';
-			data_out <= STD_LOGIC_VECTOR(40, 14) & STD_LOGIC_VECTOR(60, 14);
-			cabeza_x <= STD_LOGIC_VECTOR(60, 14);
-			cabeza_y <= STD_LOGIC_VECTOR(40, 14);
+			data_out <= STD_LOGIC_VECTOR(to_unsigned(40, 14)) & STD_LOGIC_VECTOR(to_unsigned(60, 14));
+			cabeza_x <= STD_LOGIC_VECTOR(to_unsigned(60, 14));
+			cabeza_y <= STD_LOGIC_VECTOR(to_unsigned(40, 14));
 		ELSE
 			IF(max_tick = '1') THEN
 				array_reg(to_integer(unsigned(y_in)))(to_integer(unsigned(x_in))) <= '1';
@@ -66,6 +66,6 @@ ARCHITECTURE structural OF memoria_snake IS
 	END PROCESS sequential;
 	
 	dato_pintar <= array_reg(to_integer(unsigned(dato_y)))(to_integer(unsigned(dato_x)));
-	dato_pintar <= array_reg(to_integer(unsigned(food_y)))(to_integer(unsigned(food_x)))
+	dato_pintar <= array_reg(to_integer(unsigned(food_y)))(to_integer(unsigned(food_x)));
 
 END ARCHITECTURE structural;
