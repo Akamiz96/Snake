@@ -7,6 +7,8 @@ ENTITY pantalla_comienzo IS
 	PORT	(	clk 					:  IN 	STD_LOGIC;
 				pos_x, pos_y		: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0);
+				tablero_snake		:	IN		STD_LOGIC;
+--				tablero_food		:	IN		STD_LOGIC;
 				unidades 			:  IN		STD_LOGIC_VECTOR(3 downto 0);
 				decenas 				:  IN 	STD_LOGIC_VECTOR(3 downto 0);
 				centenas 			:  IN  	STD_LOGIC_VECTOR(3 downto 0);
@@ -46,6 +48,10 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 	SIGNAL R_number 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL G_number 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL B_number 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
+	
+	SIGNAL R_tablero 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL G_tablero 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL B_tablero 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	
  BEGIN 
 	--
@@ -101,9 +107,9 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 				B <= "1111";
 			-- Área de juego
 			ELSIF (pos_x>x_juego_1 AND pos_x<x_juego_2_5 AND pos_y>y_titulo AND pos_y<y_juego_5) THEN 
-				R <= "1111";
-				G <= "0000";
-				B <= "0000";
+				R <= R_tablero;
+				G <= G_tablero;
+				B <= B_tablero;
 			-- Espacio titulo
 			ELSIF (pos_x<=x_juego_2 AND pos_x>=x_juego_1_5 AND pos_y>=y_2 AND pos_y<y_titulo_5) THEN 
 			-- Espacio letras
@@ -165,5 +171,11 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 							centenas => centenas,
 							miles => miles,
 							decenas_miles => decenas_miles);
+							
+	TABLERO:  ENTITY work.play_image
+		   PORT MAP(	tablero_snake 	=> tablero_snake,
+							R 	=> R_tablero,
+							G 	=> G_tablero,
+							B 	=> B_tablero);
 							
 END ARCHITECTURE structural;

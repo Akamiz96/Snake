@@ -26,9 +26,8 @@ BEGIN
 			IF (wr_en = '1') THEN 
 				array_reg(to_integer(unsigned(w_addr))) <= w_data;
 			END IF;
+			--Read
+			r_data <= array_reg(to_integer(unsigned(r_addr)));
 		END IF;
 	END PROCESS;
-	
-	--Read
-	r_data <= array_reg(to_integer(unsigned(r_addr)));
 END ARCHITECTURE;

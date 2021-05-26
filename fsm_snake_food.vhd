@@ -24,7 +24,7 @@ END ENTITY fsm_snake_food;
 ARCHITECTURE fsm OF fsm_snake_food IS
 	TYPE state IS (waiting,validate,save_food);
 	SIGNAL pr_state, nx_state	:	state;
-	SIGNAL x_aux, y_aux : 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+	SHARED VARIABLE x_aux, y_aux : 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 	-------------------------------------------------------------
 	--                 LOWER SECTION OF FSM                    --
@@ -49,8 +49,8 @@ BEGIN
 					ena_score <= '0';
 					ena_rand <= '1';
 					IF(ena_food='1') THEN
-						x_aux <= counter_rand_one;
-						y_aux <= counter_rand_two;
+						x_aux := counter_rand_one;
+						y_aux := counter_rand_two;
 						nx_state <= validate;
 					ELSE
 						nx_state <= waiting;

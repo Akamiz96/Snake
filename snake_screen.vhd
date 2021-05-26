@@ -49,8 +49,14 @@ ARCHITECTURE structural OF snake_screen IS
 	SIGNAL mem_decenas_s				:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL mem_centenas_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL mem_unidades_miles_s	:	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	
+	SIGNAL pos_x_tablero_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL pos_y_tablero_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 
  BEGIN 
+ 
+	pintar_x_s <= pos_x_tablero_s(7 DOWNTO 0);
+	pintar_y_s <= pos_y_tablero_s(7 DOWNTO 0);
 	
 	snake : ENTITY work.snake
 	PORT MAP(clk		    	=>	clk,	
@@ -101,6 +107,14 @@ ARCHITECTURE structural OF snake_screen IS
 				VGA_R 		=> VGA_R,
 				VGA_G 		=> VGA_G,
 				VGA_B  		=> VGA_B,
+				unidades => mem_unidades_s,
+				decenas => mem_decenas_s,
+				centenas => mem_centenas_s,
+				miles => mem_unidades_miles_s,
+				decenas_miles => "0000",
+				pos_x_tablero => pos_x_tablero_s,
+				pos_y_tablero => pos_y_tablero_s,
+				tablero_snake => dato_pintar_s,
 				enter 		=> enter);
 				
 	TMR: 		ENTITY work.timer_mov

@@ -40,32 +40,37 @@ ARCHITECTURE structural OF memoria_snake IS
 	
 	sequential: PROCESS(clk, rst, max_tick)
 	BEGIN
-		IF (rst = '1') THEN
-			array_reg(40)(60) <= '1';
-			wr <= '1';
-			data_out <= STD_LOGIC_VECTOR(to_unsigned(40, 7)) & STD_LOGIC_VECTOR(to_unsigned(60, 7));
-			cabeza_x <= STD_LOGIC_VECTOR(to_unsigned(60, 8));
-			cabeza_y <= STD_LOGIC_VECTOR(to_unsigned(40, 8));
-		ELSE
-			IF(max_tick = '1') THEN
-				array_reg(to_integer(unsigned(y_in)))(to_integer(unsigned(x_in))) <= '1';
+		IF(rising_edge(clk))THEN 
+			IF (rst = '1') THEN
+				array_reg(40)(60) <= '1';
 				wr <= '1';
-				data_out <= x_in(6 DOWNTO 0) & y_in(6 DOWNTO 0);
-				cabeza_x <= x_in;
-				cabeza_y <= y_in;
-				IF(comida = '0') THEN
-					rd <= '1';
-					x  <= data_in(13 DOWNTO 7);
-					y  <= data_in(6 DOWNTO 0);
-					array_reg(to_integer(unsigned(y)))(to_integer(unsigned(x))) <= '0';	
+				data_out <= STD_LOGIC_VECTOR(to_unsigned(40, 7)) & STD_LOGIC_VECTOR(to_unsigned(60, 7));
+				cabeza_x <= STD_LOGIC_VECTOR(to_unsigned(60, 8));
+				cabeza_y <= STD_LOGIC_VECTOR(to_unsigned(40, 8));
+			ELSE
+				IF(max_tick = '1') THEN
+					array_reg(to_integer(unsigned(y_in)))(to_integer(unsigned(x_in))) <= '1';
+					wr <= '1';
+					data_out <= x_in(6 DOWNTO 0) & y_in(6 DOWNTO 0);
+					cabeza_x <= x_in;
+					cabeza_y <= y_in;
+					IF(comida = '0') THEN
+						rd <= '1';
+						x  <= data_in(13 DOWNTO 7);
+						y  <= data_in(6 DOWNTO 0);
+						array_reg(to_integer(unsigned(y)))(to_integer(unsigned(x))) <= '0';	
+					ELSE
+						rd <= '0';
+					END IF;
 				ELSE
-					rd <= '0';
+					wr <= '0';
 				END IF;
 			END IF;
 		END IF;
 	END PROCESS sequential;
+--	dato_pintar <= array_reg(to_integer(unsigned(dato_y)))(to_integer(unsigned(dato_x)));
+--	dato_comida <= array_reg(to_integer(unsigned(food_y)))(to_integer(unsigned(food_x)));
 	
-	dato_pintar <= array_reg(to_integer(unsigned(dato_y)))(to_integer(unsigned(dato_x)));
-	dato_comida <= array_reg(to_integer(unsigned(food_y)))(to_integer(unsigned(food_x)));
-
+	dato_pintar <= '0';
+	dato_comida <= '0';
 END ARCHITECTURE structural;

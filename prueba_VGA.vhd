@@ -9,6 +9,15 @@ ENTITY prueba_VGA IS
 				VGA_HS 						:  OUT STD_LOGIC;
 				VGA_VS 						:	OUT STD_LOGIC;
 				VGA_R, VGA_G, VGA_B 		: 	OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+				unidades 			:  IN		STD_LOGIC_VECTOR(3 downto 0);
+				decenas 				:  IN 	STD_LOGIC_VECTOR(3 downto 0);
+				centenas 			:  IN  	STD_LOGIC_VECTOR(3 downto 0);
+				miles 				:  IN		STD_LOGIC_VECTOR(3 downto 0);
+				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0);
+				pos_x_tablero		: 	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
+				pos_y_tablero		: 	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
+				tablero_snake		:	IN		STD_LOGIC;
+--				tablero_food		:	IN		STD_LOGIC;
 				enter 		:  IN 	STD_LOGIC_VECTOR(3 downto 0)
 				
 	);
@@ -32,7 +41,13 @@ ARCHITECTURE structural OF prueba_VGA IS
 	SIGNAL G_in_s 		: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL B_in_s 		: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	
-BEGIN						
+	SIGNAL pos_x_divided_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL pos_y_divided_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
+	
+BEGIN	
+
+	pos_x_tablero 	<= pos_x_divided_s;
+	pos_y_tablero	<= pos_y_divided_s;
 	
 	VGA: ENTITY work.VGA
 	PORT MAP(		clk 			=> clk,
@@ -56,11 +71,20 @@ BEGIN
 						R 			=> R_in_s,
 						G 			=> G_in_s,
 						B 			=> B_in_s,
-						unidades => enter,
-						decenas => enter,
-						centenas => enter,
-						miles => enter,
-						decenas_miles => enter);	
+						unidades => unidades,
+						decenas => decenas,
+						centenas => centenas,
+						miles => miles,
+						decenas_miles => decenas_miles,
+						tablero_snake	=> tablero_snake);
+						
+	DIVIDED: ENTITY work.pos_divided
+	PORT MAP(	limite_x => std_logic_vector(to_unsigned(20,10)),
+					limite_y => std_logic_vector(to_unsigned(60,10)),
+					pos_x 	=> pos_out_x_s,
+					pos_y 	=> pos_out_y_s,
+					pos_x_divided 	=> pos_x_divided_s,
+					pos_y_divided 	=> pos_y_divided_s);
 	
 	
 	
