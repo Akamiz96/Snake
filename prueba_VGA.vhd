@@ -6,14 +6,6 @@ USE IEEE.NUMERIC_STD.all;
 ENTITY prueba_VGA IS
 	PORT	(	clk 				:	IN  STD_LOGIC;
 				rst 				:	IN  STD_LOGIC;
-				input1			:	IN		STD_LOGIC;
-				input2			:	IN		STD_LOGIC;
-				input3			:	IN		STD_LOGIC;
-				input4			:	IN		STD_LOGIC;
-				column1			:	OUT	STD_LOGIC;
-				column2			:	OUT	STD_LOGIC;
-				column3			:	OUT	STD_LOGIC;
-				column4			:	OUT	STD_LOGIC;
 				VGA_HS 						:  OUT STD_LOGIC;
 				VGA_VS 						:	OUT STD_LOGIC;
 				VGA_R, VGA_G, VGA_B 		: 	OUT STD_LOGIC_VECTOR(3 DOWNTO 0);

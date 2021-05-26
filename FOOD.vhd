@@ -8,8 +8,8 @@ ENTITY FOOD IS
 				start				  :	IN		STD_LOGIC;
 				alive				  :	IN		STD_LOGIC;
 				ena_food			  :	IN		STD_LOGIC;
-				food_x			  :	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				food_y			  :	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
+				food_x			  :	OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				food_y			  :	OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 				mem_unidades		:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
 				mem_decenas				:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
 				mem_centenas				:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -18,14 +18,14 @@ ENTITY FOOD IS
 END ENTITY FOOD;
 -------------------------------------------------------------------------------
 ARCHITECTURE structural OF FOOD IS
-	SIGNAL save_value_x_s	: STD_LOGIC_VECTOR(9 DOWNTO 0);
-	SIGNAL save_value_y_s	: STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL save_value_x_s	: STD_LOGIC_VECTOR(7 DOWNTO 0);
+	SIGNAL save_value_y_s	: STD_LOGIC_VECTOR(7 DOWNTO 0);
 	SIGNAL ena_save_s			: STD_LOGIC;
 	SIGNAL ena_rand_s			: STD_LOGIC;
 	SIGNAL max_tick_s			: STD_LOGIC;
 	SIGNAL min_tick_s			: STD_LOGIC;
-	SIGNAL counter_rand_one_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
-	SIGNAL counter_rand_two_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL counter_rand_one_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
+	SIGNAL counter_rand_two_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
 	SIGNAL ena_score_s		: STD_LOGIC;
 
 BEGIN	

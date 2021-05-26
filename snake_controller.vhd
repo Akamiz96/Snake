@@ -53,6 +53,7 @@ BEGIN
 					END IF;
 				ELSE
 					--
+					nx_state <= derecha;
 				END IF;
 			WHEN izquierda	=>
 				IF(max_tick = '1') THEN
@@ -67,6 +68,7 @@ BEGIN
 					END IF;
 				ELSE
 					--
+					nx_state <= izquierda;
 				END IF;
 			WHEN arriba =>
 				IF(max_tick = '1') THEN
@@ -81,6 +83,7 @@ BEGIN
 					END IF;
 				ELSE
 					--
+					nx_state <= arriba;
 				END IF;
 			WHEN abajo =>
 				IF(max_tick = '1') THEN
@@ -95,6 +98,7 @@ BEGIN
 					END IF;
 				ELSE
 					--
+					nx_state <= abajo;
 				END IF;
 		END CASE;
 	END PROCESS combinational;	

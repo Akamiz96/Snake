@@ -9,22 +9,22 @@ ENTITY fsm_snake_food IS
 				ena_food			:	IN		STD_LOGIC;
 				alive			:	IN		STD_LOGIC;
 				--Datos del random
-				counter_rand_one		:	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				counter_rand_two		:	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
+				counter_rand_one		:	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				counter_rand_two		:	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 				ena_rand			:	OUT		STD_LOGIC;
 				--puntaje
 				ena_score		:	OUT		STD_LOGIC;
 				--Guardar
 				ena_save		:	OUT		STD_LOGIC;
-				save_value_x			:	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				save_value_y			:	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0)
+				save_value_x			:	OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				save_value_y			:	OUT 	STD_LOGIC_VECTOR(7 DOWNTO 0)
 	);
 END ENTITY fsm_snake_food;
 ----------------------------------------------------------------
 ARCHITECTURE fsm OF fsm_snake_food IS
 	TYPE state IS (waiting,validate,save_food);
 	SIGNAL pr_state, nx_state	:	state;
-	SIGNAL x_aux, y_aux : 	STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL x_aux, y_aux : 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 BEGIN
 	-------------------------------------------------------------
 	--                 LOWER SECTION OF FSM                    --

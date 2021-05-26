@@ -23,10 +23,14 @@ ARCHITECTURE RTL OF movimiento IS
 	SIGNAL x_minusOne : INTEGER RANGE 0 to 199;
 	SIGNAL y_plusOne  : INTEGER RANGE 0 to 79;
 	SIGNAL y_minusOne : INTEGER RANGE 0 to 79;
-	SIGNAL x : STD_LOGIC_VECTOR(9 DOWNTO 0);
-	SIGNAL y : STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL x : STD_LOGIC_VECTOR(7 DOWNTO 0);
+	SIGNAL y : STD_LOGIC_VECTOR(7 DOWNTO 0);
+	SIGNAL q_out_x : STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL q_out_y : STD_LOGIC_VECTOR(9 DOWNTO 0);
 BEGIN
-
+	
+	x_out <= q_out_x(7 DOWNTO 0);
+	y_out <= q_out_y(7 DOWNTO 0);
 	------------------------
 	x_plusOne  <= to_integer(unsigned(x_in)) + 1;
 	x_minusOne <= to_integer(unsigned(x_in)) + 1;
@@ -35,12 +39,12 @@ BEGIN
 	y_minusOne <= to_integer(unsigned(y_in)) + 1;	
 	------------------------
 	------------------------
-	x <= STD_LOGIC_VECTOR(to_unsigned(x_plusOne,10))  WHEN selX = "01" ELSE 
-		  STD_LOGIC_VECTOR(to_unsigned(x_minusOne,10)) WHEN selX = "10" ELSE
+	x <= STD_LOGIC_VECTOR(to_unsigned(x_plusOne,8))  WHEN selX = "01" ELSE 
+		  STD_LOGIC_VECTOR(to_unsigned(x_minusOne,8)) WHEN selX = "10" ELSE
 		  x_in;
 				
-	y <= STD_LOGIC_VECTOR(to_unsigned(y_plusOne,10))  WHEN selY = "01" ELSE 
-		  STD_LOGIC_VECTOR(to_unsigned(y_minusOne,10)) WHEN selY = "10" ELSE
+	y <= STD_LOGIC_VECTOR(to_unsigned(y_plusOne,8))  WHEN selY = "01" ELSE 
+		  STD_LOGIC_VECTOR(to_unsigned(y_minusOne,8)) WHEN selY = "10" ELSE
 		  y_in;
 				
 	regX : ENTITY work.my_reg
@@ -48,15 +52,15 @@ BEGIN
 		PORT MAP (	 clk			=> clk,
 						 rst			=> rst,
 						 ena			=> max_tick,
-						 d				=> x,
-						 q				=> x_out);
+						 d				=> "00"&x,
+						 q				=> q_out_x);
 	regY : ENTITY work.my_reg
 		GENERIC MAP (MAX_WIDTH	=> N)
 		PORT MAP (	 clk			=> clk,
 						 rst			=> rst,
 						 ena			=> max_tick,
-						 d				=> y,
-						 q				=> y_out);
+						 d				=> "00"&y,
+						 q				=> q_out_y);
 	
 	PROCESS(x_plusOne,x_minusOne,y_plusOne, y_minusOne)
 	BEGIN

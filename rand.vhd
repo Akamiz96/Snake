@@ -3,8 +3,8 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
 ----------------------------------------
 ENTITY rand IS
-	GENERIC (N_rand_one			:	INTEGER	:=	10;
-				N_rand_two			:	INTEGER	:=	10); 
+	GENERIC (N_rand_one			:	INTEGER	:=	8;
+				N_rand_two			:	INTEGER	:=	8); 
 	PORT	  (clk			:	IN		STD_LOGIC;
 				rst			:	IN 	STD_LOGIC;
 				ena			:	IN 	STD_LOGIC;
@@ -28,17 +28,17 @@ BEGIN
 
 	counter_rand_one <= counter_rand_one_s;
 	counter_rand_two <= counter_rand_two_s;
-
-	load_one_s	<=	'1' WHEN counter_rand_one_s = "1001100010"	ELSE 
+	
+	load_one_s	<=	'1' WHEN counter_rand_one_s = "01110111"	ELSE 
 					'0';
 
-	load_two_s	<=	'1' WHEN counter_rand_two_s = "0000110111"	ELSE 
+	load_two_s	<=	'1' WHEN counter_rand_two_s = "00000000"	ELSE 
+					'0';
+	
+	max_tick	<=	'1' WHEN counter_rand_one_s = "01110111"	ELSE 
 					'0';
 
-	max_tick	<=	'1' WHEN counter_rand_one_s = "1001100010"	ELSE 
-					'0';
-
-	min_tick	<=	'1' WHEN counter_rand_two_s = "0000110111"	ELSE 
+	min_tick	<=	'1' WHEN counter_rand_two_s = "00000000"	ELSE 
 					'0';
 
 	CNTR_1: 	ENTITY work.bin_counter_rand
@@ -50,7 +50,7 @@ BEGIN
 								load	=> load_one_s,
 								up	=> up_one_s,
 								sel => '1',
-								d	=> "0000010100",
+								d	=> "00000000",
 								max_tick	=> max_tick_s,
 								min_tick	=> min_tick_s,
 								counter	=> counter_rand_one_s);
@@ -64,7 +64,7 @@ BEGIN
 								load	=> load_two_s,
 								up	=> up_two_s,
 								sel => '0',
-								d	=> "0111001100",
+								d	=> "01001111",
 								max_tick	=> max_tick_s,
 								min_tick	=> min_tick_s,
 								counter	=> counter_rand_two_s);

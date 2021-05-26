@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
 ----------------------------------------
 ENTITY bin_counter_rand IS
-	GENERIC (N				:	INTEGER	:=	10);
+	GENERIC (N				:	INTEGER	:=	8);
 	PORT	  (clk			:	IN		STD_LOGIC;
 				rst			:	IN 	STD_LOGIC;
 				ena			:	IN 	STD_LOGIC;
@@ -28,8 +28,8 @@ BEGIN
 	
 	count_next	<=	ZEROS 			 WHEN syn_clr = '1'					ELSE 
 						UNSIGNED(d)		 WHEN load = '1'						ELSE
-						count_s + 5		 WHEN	(ena = '1' AND up = '1') 	ELSE 
-						count_s - 5		 WHEN	(ena = '1' AND up = '0') 	ELSE 
+						count_s + 1		 WHEN	(ena = '1' AND up = '1') 	ELSE 
+						count_s - 1		 WHEN	(ena = '1' AND up = '0') 	ELSE 
 						count_s;
 	
 	PROCESS(clk,rst,sel)
@@ -37,9 +37,9 @@ BEGIN
 	BEGIN
 		IF(rst='1')	THEN 
 			IF(sel='0') THEN
-				temp := "0111000111";
+				temp := "01001111";
 			ELSE
-				temp := "0000010100";
+				temp := "00000000";
 			END IF;
 		ELSIF(rising_edge(clk))	THEN 
 			IF(ena='1')	THEN 
