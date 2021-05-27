@@ -7,7 +7,6 @@ ENTITY conv_control IS
 				rst				:	IN		STD_LOGIC;
 				new_data			: 	IN 	STD_LOGIC;
 				but_value		:	IN		STD_LOGIC_VECTOR(3 DOWNTO 0);
-				max_tick			: 	IN		STD_LOGIC;
 				buttonUp, buttonDown, buttonLeft, buttonRight : OUT STD_LOGIC
 	);
 END ENTITY conv_control;
@@ -35,7 +34,7 @@ BEGIN
 	BEGIN
 		CASE pr_state IS
 			WHEN waiting =>
-				buttonUp <= '0';
+				buttonUp <= '1';
 				buttonDown <= '0';
 				buttonLeft <= '0';
 				buttonRight <= '0';
@@ -51,7 +50,7 @@ BEGIN
 					ELSE	
 						nx_state <= waiting;
 					END IF;
-				ELSE 
+				ELSE
 					nx_state <= waiting;
 				END IF;
 			WHEN arriba =>
@@ -74,9 +73,6 @@ BEGIN
 				ELSE 
 					nx_state <= arriba;
 				END IF;
-				IF (max_tick = '1') THEN
-					nx_state <= waiting;
-				END IF;
 			WHEN abajo =>
 				buttonUp <= '0';
 				buttonDown <= '1';
@@ -96,9 +92,6 @@ BEGIN
 					END IF;
 				ELSE 
 					nx_state <= abajo;
-				END IF;
-				IF (max_tick = '1') THEN
-					nx_state <= waiting;
 				END IF;
 			WHEN izquierda =>
 				buttonUp <= '0';
@@ -120,9 +113,6 @@ BEGIN
 				ELSE 
 					nx_state <= izquierda;
 				END IF;
-				IF (max_tick = '1') THEN
-					nx_state <= waiting;
-				END IF;
 			WHEN derecha =>
 				buttonUp <= '0';
 				buttonDown <= '0';
@@ -142,9 +132,6 @@ BEGIN
 					END IF;
 				ELSE 
 					nx_state <= derecha;
-				END IF;
-				IF (max_tick = '1') THEN
-					nx_state <= waiting;
 				END IF;
 		END CASE;
 	END PROCESS combinational;

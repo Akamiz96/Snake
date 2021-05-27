@@ -63,23 +63,23 @@ BEGIN
 						pos_out_y	=> pos_out_y_s);	
 		
 	IMG_FINAL: ENTITY work.imagen_final
-	PORT MAP(		clk 		=> clk,
-						x 			=> x_out_s,
-						y 			=> y_out_s,
-						pos_x 	=> pos_out_x_s,
-						pos_y 	=> pos_out_y_s,
-						R 			=> R_in_s,
-						G 			=> G_in_s,
-						B 			=> B_in_s,
-						unidades => unidades,
-						decenas => decenas,
-						centenas => centenas,
-						miles => miles,
-						decenas_miles => decenas_miles,
+	PORT MAP(		clk 				=> clk,
+						x 					=> x_out_s,
+						y 					=> y_out_s,
+						pos_x 			=> pos_out_x_s,
+						pos_y 			=> pos_out_y_s,
+						R 					=> R_in_s,
+						G 					=> G_in_s,
+						B 					=> B_in_s,
+						unidades 		=> unidades,
+						decenas 			=> decenas,
+						centenas 		=> centenas,
+						miles 			=> miles,
+						decenas_miles 	=> decenas_miles,
 						tablero_snake	=> tablero_snake);
 						
 	DIVIDED: ENTITY work.pos_divided
-	PORT MAP(	limite_x => std_logic_vector(to_unsigned(20,10)),
+	PORT MAP(	limite_x => std_logic_vector(to_unsigned(10,10)),
 					limite_y => std_logic_vector(to_unsigned(60,10)),
 					pos_x 	=> pos_out_x_s,
 					pos_y 	=> pos_out_y_s,

@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
 ----------------------------------------
 ENTITY timer_mov IS
-	GENERIC (N_50			:	INTEGER	:=	17); --
+	GENERIC (N_50			:	INTEGER	:=	26); --
 	PORT	  (clk			:	IN		STD_LOGIC;
 				rst			:	IN 	STD_LOGIC;
 				ena			:	IN 	STD_LOGIC;
@@ -27,10 +27,11 @@ ARCHITECTURE structural OF timer_mov IS
 BEGIN 
 		
 	counter <= counter_s;
-	
-	load_s	<=	'1' WHEN counter_s = "11000011010100000"	ELSE 
+	-- 10111110101111000010000000 50M
+	-- 01011111010111100001000000 25M
+	load_s	<=	'1' WHEN counter_s = "01011111010111100001000000"	ELSE 
 					'0';
-	max_tick	<=	'1' WHEN counter_s = "11000011010100000"	ELSE 
+	max_tick	<=	'1' WHEN counter_s = "01011111010111100001000000"	ELSE 
 					'0';
 	--Pruebas TestBench 11110100001001000000
 	--load_s	<=	'1' WHEN counter_s = "1111"	ELSE 

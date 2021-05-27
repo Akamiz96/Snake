@@ -46,85 +46,109 @@ ARCHITECTURE structural OF number_image IS
 	
 	SIGNAL number_score	: 	STD_LOGIC_VECTOR(16 DOWNTO 0);
 	
---	SIGNAL unidades 		: STD_LOGIC_VECTOR(3 downto 0) := "0001";
---	SIGNAL decenas 		: STD_LOGIC_VECTOR(3 downto 0) := "0110";
---	SIGNAL centenas 		: STD_LOGIC_VECTOR(3 downto 0) := "0001";
---	SIGNAL miles 			: STD_LOGIC_VECTOR(3 downto 0) := "0011";
---	SIGNAL decenas_miles : STD_LOGIC_VECTOR(3 downto 0) := "0101";
-	
 
  BEGIN 
 	
 	number_score <= "11000011010011111";
 	-- 0
-	array_reg_0(0) <= "0111";
-	array_reg_0(1) <= "0101";
-	array_reg_0(2) <= "0101";
+	array_reg_0(0) <= "0000";
+	array_reg_0(1) <= "0000";
+	array_reg_0(2) <= "0111";
 	array_reg_0(3) <= "0101";
-	array_reg_0(4) <= "0111";
+	array_reg_0(4) <= "0101";
+	array_reg_0(5) <= "0101";
+	array_reg_0(6) <= "0111";
+	array_reg_0(7) <= "0000";
 	
 	-- 1
-	array_reg_1(0) <= "0010";
-	array_reg_1(1) <= "0011";
+	array_reg_1(0) <= "0000";
+	array_reg_1(1) <= "0000";
 	array_reg_1(2) <= "0010";
-	array_reg_1(3) <= "0010";
-	array_reg_1(4) <= "0111";
+	array_reg_1(3) <= "0011";
+	array_reg_1(4) <= "0010";
+	array_reg_1(5) <= "0010";
+	array_reg_1(6) <= "0111";
+	array_reg_1(7) <= "0000";
 	
 	-- 2
-	array_reg_2(0) <= "0111";
-	array_reg_2(1) <= "0100";
-	array_reg_2(2) <= "0010";
-	array_reg_2(3) <= "0001";
-	array_reg_2(4) <= "0111";
+	array_reg_2(0) <= "0000";
+	array_reg_2(1) <= "0000";
+	array_reg_2(2) <= "0111";
+	array_reg_2(3) <= "0100";
+	array_reg_2(4) <= "0010";
+	array_reg_2(5) <= "0001";
+	array_reg_2(6) <= "0111";
+	array_reg_2(7) <= "0000";
 	
 	-- 3
-	array_reg_3(0) <= "0111";
-	array_reg_3(1) <= "0100";
-	array_reg_3(2) <= "0010";
+	array_reg_3(0) <= "0000";
+	array_reg_3(1) <= "0000";
+	array_reg_3(2) <= "0111";
 	array_reg_3(3) <= "0100";
-	array_reg_3(4) <= "0111";
+	array_reg_3(4) <= "0010";
+	array_reg_3(5) <= "0100";
+	array_reg_3(6) <= "0111";
+	array_reg_3(7) <= "0000";
 	
 	-- 4
-	array_reg_4(0) <= "0101";
-	array_reg_4(1) <= "0101";
-	array_reg_4(2) <= "0111";
-	array_reg_4(3) <= "0100";
-	array_reg_4(4) <= "0100";
+	array_reg_4(0) <= "0000";
+	array_reg_4(1) <= "0000";
+	array_reg_4(2) <= "0101";
+	array_reg_4(3) <= "0101";
+	array_reg_4(4) <= "0111";
+	array_reg_4(5) <= "0100";
+	array_reg_4(6) <= "0100";
+	array_reg_0(7) <= "0000";
 	
 	-- 5
-	array_reg_5(0) <= "0111";
-	array_reg_5(1) <= "0001";
+	array_reg_4(0) <= "0000";
+	array_reg_4(1) <= "0000";
 	array_reg_5(2) <= "0111";
-	array_reg_5(3) <= "0100";
+	array_reg_5(3) <= "0001";
 	array_reg_5(4) <= "0111";
+	array_reg_5(5) <= "0100";
+	array_reg_5(6) <= "0111";
+	array_reg_4(7) <= "0000";
 	
 	-- 6
-	array_reg_6(0) <= "0111";
-	array_reg_6(1) <= "0001";
+	array_reg_6(0) <= "0000";
+	array_reg_6(1) <= "0000";
 	array_reg_6(2) <= "0111";
-	array_reg_6(3) <= "0101";
+	array_reg_6(3) <= "0001";
 	array_reg_6(4) <= "0111";
+	array_reg_6(5) <= "0101";
+	array_reg_6(6) <= "0111";
+	array_reg_6(7) <= "0000";
 	
 	-- 7
-	array_reg_7(0) <= "0111";
-	array_reg_7(1) <= "0100";
-	array_reg_7(2) <= "0100";
+	array_reg_7(0) <= "0000";
+	array_reg_7(1) <= "0000";
+	array_reg_7(2) <= "0111";
 	array_reg_7(3) <= "0100";
 	array_reg_7(4) <= "0100";
+	array_reg_7(5) <= "0100";
+	array_reg_7(6) <= "0100";
+	array_reg_7(7) <= "0000";
 	
 	-- 8
-	array_reg_8(0) <= "0111";
-	array_reg_8(1) <= "0101";
+	array_reg_8(0) <= "0000";
+	array_reg_8(1) <= "0000";
 	array_reg_8(2) <= "0111";
 	array_reg_8(3) <= "0101";
 	array_reg_8(4) <= "0111";
+	array_reg_8(5) <= "0101";
+	array_reg_8(6) <= "0111";
+	array_reg_8(7) <= "0000";
 	
 	-- 9
-	array_reg_9(0) <= "0111";
-	array_reg_9(1) <= "0101";
+	array_reg_9(0) <= "0000";
+	array_reg_9(1) <= "0000";
 	array_reg_9(2) <= "0111";
-	array_reg_9(3) <= "0100";
+	array_reg_9(3) <= "0101";
 	array_reg_9(4) <= "0111";
+	array_reg_9(5) <= "0100";
+	array_reg_9(6) <= "0111";
+	array_reg_9(7) <= "0000";
 	
 	digit_0 <= array_reg_0;
 	digit_1 <= array_reg_1;

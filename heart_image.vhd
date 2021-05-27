@@ -20,11 +20,14 @@ ARCHITECTURE structural OF heart_image IS
 	SIGNAL mem				: 	STD_LOGIC;
 
  BEGIN 
-	array_reg(0) <= "00001010000";
-	array_reg(1) <= "00011111000";
-	array_reg(2) <= "00011111000";
-	array_reg(3) <= "00001110000";
-	array_reg(4) <= "00000100000";
+	array_reg(0) <= "00000000000";
+	array_reg(1) <= "00000000000";
+	array_reg(2) <= "00001010000";
+	array_reg(3) <= "00011111000";
+	array_reg(4) <= "00011111000";
+	array_reg(5) <= "00001110000";
+	array_reg(6) <= "00000100000";
+	array_reg(7) <= "00000000000";
 	
 	PROCESS(pos_x, pos_y)
 	BEGIN
@@ -40,15 +43,6 @@ ARCHITECTURE structural OF heart_image IS
 			G <= "0000";
 			B <= "0000";
 		END IF;
---		G <= "0000";
---		B <= "0000";
---		G(0) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		G(1) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		G(2) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		B(0) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		B(1) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		B(2) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		r_data <= array_reg(to_integer(unsigned(r_addr)));
 	END PROCESS;
 	
 END ARCHITECTURE structural;

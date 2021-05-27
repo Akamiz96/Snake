@@ -20,11 +20,14 @@ ARCHITECTURE structural OF score_image IS
 	SIGNAL mem				: 	STD_LOGIC;
 
  BEGIN 
-	array_reg(0) <= "11011100111001100111001110";
-	array_reg(1) <= "11000101001010010000100001";
-	array_reg(2) <= "00011100111010010000100110";
-	array_reg(3) <= "11000100101010010000101000";
-	array_reg(4) <= "11011101001001100111000111";
+	array_reg(0) <= "00000000000000000000000000";
+	array_reg(1) <= "00000000000000000000000000";
+	array_reg(2) <= "11011100111001100111001110";
+	array_reg(3) <= "11000101001010010000100001";
+	array_reg(4) <= "00011100111010010000100110";
+	array_reg(5) <= "11000100101010010000101000";
+	array_reg(6) <= "11011101001001100111000111";
+	array_reg(7) <= "00000000000000000000000000";
 	
 	PROCESS(pos_x, pos_y)
 	BEGIN
@@ -40,15 +43,6 @@ ARCHITECTURE structural OF score_image IS
 			G <= "0000";
 			B <= "0000";
 		END IF;
---		G <= "0000";
---		B <= "0000";
---		G(0) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		G(1) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		G(2) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		B(0) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		B(1) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		B(2) <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
---		r_data <= array_reg(to_integer(unsigned(r_addr)));
 	END PROCESS;
 	
 END ARCHITECTURE structural;
