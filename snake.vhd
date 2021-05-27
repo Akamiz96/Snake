@@ -10,6 +10,7 @@ ENTITY snake IS
 				DATA_WIDTH2			:	INTEGER	:=	14);
 	PORT	(	clk					:  IN 	STD_LOGIC;
 				rst					:  IN    STD_LOGIC;
+				stop					: 	IN 	STD_LOGIC;
 				pintar_x				:  OUT 	STD_LOGIC_VECTOR(5 DOWNTO 0);
 				pintar_y				:  OUT  	STD_LOGIC_VECTOR(5 DOWNTO 0);
 				we						:  OUT  	STD_LOGIC;
@@ -57,6 +58,7 @@ ARCHITECTURE structural OF snake IS
 	fsm : ENTITY work.snake_controller
 	PORT MAP(clk		    	=>	clk,	
 				rst			 	=>	rst,
+				stop				=> stop,
 				max_tick		 	=>	max_tick_s,
 				pintar_x	 		=>	pintar_x,		
 				pintar_y 		=>	pintar_y,

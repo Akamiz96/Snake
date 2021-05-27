@@ -10,6 +10,7 @@ ENTITY snake_screen IS
 				input2			:	IN		STD_LOGIC;
 				input3			:	IN		STD_LOGIC;
 				input4			:	IN		STD_LOGIC;
+				stop				: 	IN 	STD_LOGIC;
 				column1			:	OUT	STD_LOGIC;
 				column2			:	OUT	STD_LOGIC;
 				column3			:	OUT	STD_LOGIC;
@@ -143,6 +144,7 @@ ARCHITECTURE structural OF snake_screen IS
 	snake : ENTITY work.snake
 	PORT MAP(clk		    	=>	clk,	
 				rst			 	=>	rst,
+				stop				=> stop,
 				pintar_x	 		=>	pintar_x_s,		
 				pintar_y 		=>	pintar_y_s,
 				we		 			=>	we_s,

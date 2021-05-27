@@ -5,6 +5,7 @@ use ieee.numeric_std.all;
 ENTITY snake_controller IS
 	PORT	(	clk					:	IN 	STD_LOGIC;
 				rst					:	IN		STD_LOGIC;
+				stop					: 	IN 	STD_LOGIC;
 				pintar_x				:  OUT 	STD_LOGIC_VECTOR(5 DOWNTO 0);
 				pintar_y				:  OUT  	STD_LOGIC_VECTOR(5 DOWNTO 0);
 				we						:  OUT  	STD_LOGIC;
@@ -17,7 +18,7 @@ ENTITY snake_controller IS
 END ENTITY snake_controller;
 ----------------------------------------------------------------
 ARCHITECTURE fsm OF snake_controller IS
-	TYPE state IS (inicio, espera, pintar, despintar, arriba, abajo, izquierda, derecha);
+	TYPE state IS (inicio, espera, pintar, despintar, arriba, abajo, izquierda, derecha,stop_state);
 	SIGNAL pr_state, nx_state	: state;
 	
 	SIGNAL direccion : STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -45,7 +46,7 @@ BEGIN
 	-------------------------------------------------------------
 	--                 UPPER SECTION OF FSM                    --
 	-------------------------------------------------------------
-	combinational: PROCESS(pr_state, max_tick,direccion)
+	combinational: PROCESS(pr_state, max_tick,direccion,stop)
 	BEGIN
 		CASE pr_state IS
 			WHEN inicio =>
@@ -77,7 +78,11 @@ BEGIN
 						nx_state <= espera;
 					END IF;
 				ELSE
-					nx_state <= espera;
+					IF (stop = '1') THEN 
+						nx_state <= stop_state;
+					ELSE
+						nx_state <= espera;
+					END IF;	
 				END IF;
 			WHEN derecha =>
 				we <= '0';
@@ -123,6 +128,15 @@ BEGIN
 				ena_timer <= '0';
 				syn_clr_timer <= '1';
 				nx_state <= espera;
+			WHEN stop_state =>
+				we <= '0';
+				ena_timer <= '1';
+				syn_clr_timer <= '1';
+				IF (stop = '1') THEN 
+					nx_state <= stop_state;
+				ELSE
+					nx_state <= espera;
+				END IF;	
 		END CASE;
 	END PROCESS combinational;
 	
