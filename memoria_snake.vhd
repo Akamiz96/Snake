@@ -15,7 +15,9 @@ ENTITY memoria_snake IS
 				comida_x				:  IN   	STD_LOGIC_VECTOR(5 DOWNTO 0);
 				comida_y				:  IN   	STD_LOGIC_VECTOR(5 DOWNTO 0);
 				we						:  IN   	STD_LOGIC;
+				we_comida			:  IN   	STD_LOGIC;
 				pintar_despintar	: 	IN 	STD_LOGIC;
+				pintar_despintar_comida	: 	IN 	STD_LOGIC;
 				pantalla_dato		: 	OUT 	STD_LOGIC;
 				comida_dato			: 	OUT 	STD_LOGIC
 	);
@@ -38,6 +40,13 @@ ARCHITECTURE structural OF memoria_snake IS
 						array_reg(to_integer(unsigned(pintar_y)))(to_integer(unsigned(pintar_x))) <= '1';
 					ELSE
 						array_reg(to_integer(unsigned(pintar_y)))(to_integer(unsigned(pintar_x))) <= '0';
+					END IF;
+				END IF;
+				IF (we_comida = '1') THEN
+					IF (pintar_despintar_comida = '1') THEN
+						array_reg(to_integer(unsigned(comida_y)))(to_integer(unsigned(comida_x))) <= '1';
+					ELSE
+						array_reg(to_integer(unsigned(comida_y)))(to_integer(unsigned(comida_x))) <= '0';
 					END IF;
 				END IF;
 				pantalla_dato 	<= array_reg(to_integer(unsigned(pantalla_y)))(to_integer(unsigned(pantalla_x)));

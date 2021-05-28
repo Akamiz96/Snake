@@ -7,7 +7,7 @@ ENTITY fsm_snake_food IS
 				rst				:	IN		STD_LOGIC;
 				start				:	IN		STD_LOGIC;
 				ena_food			:	IN		STD_LOGIC;
-				alive			:	IN		STD_LOGIC;
+				alive				:	IN		STD_LOGIC;
 				--Datos del random
 				counter_rand_one		:	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 				counter_rand_two		:	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -45,8 +45,8 @@ BEGIN
 	BEGIN
 		CASE pr_state IS
 			WHEN waiting =>
+				ena_score <= '0';
 				IF(start='1') THEN
-					ena_score <= '0';
 					ena_rand <= '1';
 					IF(ena_food='1') THEN
 						x_aux := counter_rand_one;

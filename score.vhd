@@ -6,6 +6,7 @@ ENTITY score IS
 	PORT	(	clk              :	IN		STD_LOGIC;    
             rst              :	IN		STD_LOGIC;
 				ena_score			:  IN STD_LOGIC;
+				clear					:  IN STD_LOGIC;
 				mem_unidades		:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
 				mem_decenas				:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
 				mem_centenas				:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -31,6 +32,7 @@ BEGIN
 			PORT MAP(   clk     => clk,
 							rst     => rst,
 							ena	  => ena_score,
+							clear	  => clear,
 							score   => score_s);
 
 END ARCHITECTURE structural;

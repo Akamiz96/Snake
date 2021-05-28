@@ -10,6 +10,7 @@ ARCHITECTURE testbench OF FOOD_tb IS
 	SIGNAL			clk_tb				: 	 	STD_LOGIC := '0';
 	SIGNAL			rst_tb				: 	 	STD_LOGIC:= '1';  
 	SIGNAL			start_tb				  :		STD_LOGIC;
+	SIGNAL			comer_tb				  :		STD_LOGIC;
 	SIGNAL			alive_tb				  :		STD_LOGIC;
 	SIGNAL			ena_food_tb			  :		STD_LOGIC;
 	SIGNAL			food_x_tb			  :		STD_LOGIC_VECTOR(9 DOWNTO 0);
@@ -32,6 +33,7 @@ BEGIN
 							start	=> start_tb,
 							alive	=> alive_tb,
 							ena_food		=>  ena_food_tb,
+							ena_save		=> comer_tb,
 							food_x		=> food_x_tb,
 							food_y		=> food_y_tb,
 							mem_unidades		=> mem_unidades_tb,

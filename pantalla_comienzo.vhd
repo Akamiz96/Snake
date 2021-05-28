@@ -45,6 +45,8 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 	SIGNAL G_tablero 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL B_tablero 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	
+	SIGNAL obstacle	: STD_LOGIC;
+	
 	SIGNAL pos_x_divided_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL pos_y_divided_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 	
@@ -82,13 +84,14 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 				B <= "1111";
 			-- Área de juego
 			ELSIF (pos_x>=x_1 AND pos_x<=x_2 AND pos_y>=y_bordeSup_Mayor AND pos_y<=y_1) THEN 
-				IF (tablero_snake = '1') THEN
-					R <= "0000";
-					G <= "1111";
-					B <= "0000";
-				ELSIF(tablero_food='1') THEN
+				IF (obstacle = '1') THEN
 					R <= "1111";
 					G <= "0000";
+					B <= "0000";
+				ELSIF (tablero_snake = '1') THEN
+--				IF (tablero_snake = '1') THEN
+					R <= "0000";
+					G <= "1111";
 					B <= "0000";
 				ELSE	
 					R <= "0000";
@@ -157,5 +160,12 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 							centenas => centenas,
 							miles => miles,
 							decenas_miles => decenas_miles);
+	
+	OBTACLE:  ENTITY work.obstacle_image
+		   PORT MAP(	limite_x => std_logic_vector(to_unsigned(10,10)),
+							limite_y => std_logic_vector(to_unsigned(60,10)),
+							pos_x 	=> pos_x,
+							pos_y 	=> pos_y,
+							obstacle => obstacle);
 							
 END ARCHITECTURE structural;

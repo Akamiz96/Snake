@@ -57,6 +57,14 @@ ARCHITECTURE structural OF snake_screen IS
 	SIGNAL mem_decenas_s				:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL mem_centenas_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL mem_unidades_miles_s	:	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	
+	SIGNAL comer_s	:	STD_LOGIC;
+	
+	SIGNAL we_comida_s	:	STD_LOGIC;
+	SIGNAL pintar_despintar_comida_s	:	STD_LOGIC;
+	SIGNAL ena_save_s:	STD_LOGIC;
+	SIGNAL obstacle:	STD_LOGIC;
+	
 	-----------------
 
  BEGIN 
@@ -93,7 +101,9 @@ ARCHITECTURE structural OF snake_screen IS
 				 comida_x			=> food_x_s(5 DOWNTO 0),	
 				 comida_y			=>	food_y_s(5 DOWNTO 0),		
 				 we		 			=>	we_s,
+				 we_comida			=> we_comida_s,
 				 pintar_despintar => pintar_despintar_s,
+				 pintar_despintar_comida => pintar_despintar_comida_s,
 				 pantalla_dato		=>	tablero_snake_s,
 				 comida_dato   	=>	comida_dato_s);
 						
@@ -135,28 +145,35 @@ ARCHITECTURE structural OF snake_screen IS
 				buttonRight  	=> buttonRight_s,
 				food_x		=> food_x_s(5 DOWNTO 0),
 				food_y		=> food_y_s(5 DOWNTO 0),
-				comida		=> comida_s);
+				comida		=> comida_s,
+				mem_unidades=>mem_unidades_s,
+				mem_decenas=>mem_decenas_s,
+				mem_centenas=>mem_centenas_s,
+				mem_unidades_miles=>mem_unidades_miles_s);
 
-	FOOD: 	ENTITY work.FOOD
-				PORT MAP(  	clk	=> clk,
-								rst	=> rst,
-								start=> '1',
-								alive=>comida_dato_s,
-								ena_food=>comida_s,
-								food_x=>food_x_s,
-								food_y=>food_y_s,
-								mem_unidades=>mem_unidades_s,
-								mem_decenas=>mem_decenas_s,
-								mem_centenas=>mem_centenas_s,
-								mem_unidades_miles=>mem_unidades_miles_s);
+--	FOOD: 	ENTITY work.FOOD
+--				PORT MAP(  	clk	=> clk,
+--								rst	=> rst,
+--								start=> '1',
+--								alive=>comida_dato_s,
+--								ena_food=>comida_s,
+--								food_x=>food_x_s,
+--								food_y=>food_y_s,
+--								ena_save => ena_save_s,
+--								mem_unidades=>mem_unidades_s,
+--								mem_decenas=>mem_decenas_s,
+--								mem_centenas=>mem_centenas_s,
+--								mem_unidades_miles=>mem_unidades_miles_s);
 	
-	PROCESS(pos_x_tablero_s,pos_y_tablero_s,tablero_food_s)
-	BEGIN
-		IF (pos_x_tablero_s="00"&food_x_s AND pos_y_tablero_s="00"&food_y_s) THEN 
-			tablero_food_s <= '1';
-		ELSE 
-			tablero_food_s <= '0';
-		END IF;
-	END PROCESS;
+--	PROCESS(ena_save_s)
+--	BEGIN
+--		IF (ena_save_s='1') THEN 
+--			we_comida_s <= '1';
+--			pintar_despintar_comida_s <= '1';
+--		ELSE 
+--			we_comida_s <= '0';
+--			pintar_despintar_comida_s <= '0';
+--		END IF;
+--	END PROCESS;
 	
 END ARCHITECTURE structural;

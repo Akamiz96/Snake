@@ -2,8 +2,8 @@ LIBRARY IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
 ----------------------------------------
-ENTITY timer_mov IS
-	GENERIC (N_50			:	INTEGER	:=	27); --
+ENTITY timer_score IS
+	GENERIC (N_50			:	INTEGER	:=	26); --
 	PORT	  (clk			:	IN		STD_LOGIC;
 				rst			:	IN 	STD_LOGIC;
 				ena			:	IN 	STD_LOGIC;
@@ -13,7 +13,7 @@ ENTITY timer_mov IS
 				counter		:	OUT 	STD_LOGIC_VECTOR(N_50-1 DOWNTO 0));
 END ENTITY;
 ----------------------------------------
-ARCHITECTURE structural OF timer_mov IS 
+ARCHITECTURE structural OF timer_score IS 
 	CONSTANT ONES		:	STD_LOGIC_VECTOR(N_50-1 DOWNTO 0)	:=	(OTHERS => '1');
 	CONSTANT ZEROS		:	STD_LOGIC_VECTOR(N_50-1 DOWNTO 0)	:=	(OTHERS => '0');
 	
@@ -29,9 +29,9 @@ BEGIN
 	counter <= counter_s;
 	-- 10111110101111000010000000 50M
 	-- 01011111010111100001000000 25M
-	load_s	<=	'1' WHEN counter_s = "001011111010111100001000000"	ELSE 
+	load_s	<=	'1' WHEN counter_s = "10111110101111000010000000"	ELSE 
 					'0';
-	max_tick	<=	'1' WHEN counter_s = "001011111010111100001000000"	ELSE 
+	max_tick	<=	'1' WHEN counter_s = "10111110101111000010000000"	ELSE 
 					'0';
 	--Pruebas TestBench 11110100001001000000
 	--load_s	<=	'1' WHEN counter_s = "1111"	ELSE 

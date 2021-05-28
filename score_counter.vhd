@@ -6,6 +6,7 @@ ENTITY score_counter IS
     PORT(           clk              :	IN		STD_LOGIC;    
                     rst              :	IN		STD_LOGIC;
 						  ena					 :	IN		STD_LOGIC;
+						  clear				 :	IN		STD_LOGIC;
                     score            :	OUT 	STD_LOGIC_VECTOR(13 DOWNTO 0));
 END ENTITY score_counter;
 -------------------------------------
@@ -16,7 +17,7 @@ ARCHITECTURE behaviour OF score_counter IS
 BEGIN
 	 d_signal <= STD_LOGIC_VECTOR(unsigned(q_signal)+1);
 	 score 		<= q_signal;
-	 rst_signal <= rst;
+	 rst_signal <= rst AND clear;
 
     DUT: ENTITY work.my_dff_score
     PORT MAP (    clk            =>    clk,

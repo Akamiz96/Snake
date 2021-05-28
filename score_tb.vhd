@@ -9,6 +9,7 @@ END ENTITY score_tb;
 ARCHITECTURE testbench OF score_tb IS
 	SIGNAL			clk_tb				: 	 	STD_LOGIC := '0';
 	SIGNAL			rst_tb				: 	 	STD_LOGIC:= '1';  
+	SIGNAL			clear_tb				: 	 	STD_LOGIC:= '0'; 
 	SIGNAL			ena_score_tb			:   	STD_LOGIC;
 	SIGNAL			mem_unidades_tb			:  	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL			mem_decenas_tb			:  	STD_LOGIC_VECTOR(3	DOWNTO 0);
@@ -25,6 +26,7 @@ BEGIN
 	DUT: ENTITY work.score
 		  PORT MAP(  	clk => clk_tb,
 							rst => rst_tb,
+							clear => clear_tb,
 							ena_score => ena_score_tb,
 							mem_unidades => mem_unidades_tb,
 							mem_decenas => mem_decenas_tb,
