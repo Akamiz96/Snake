@@ -8,12 +8,14 @@ ENTITY pantalla_comienzo IS
 				pos_x, pos_y		: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0);
 				tablero_snake		:	IN		STD_LOGIC;
---				tablero_food		:	IN		STD_LOGIC;
+				tablero_food		:	IN		STD_LOGIC;
 				unidades 			:  IN		STD_LOGIC_VECTOR(3 downto 0);
 				decenas 				:  IN 	STD_LOGIC_VECTOR(3 downto 0);
 				centenas 			:  IN  	STD_LOGIC_VECTOR(3 downto 0);
 				miles 				:  IN		STD_LOGIC_VECTOR(3 downto 0);
-				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0)
+				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0);
+				food_x			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				food_y			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0)
 	);
 END ENTITY pantalla_comienzo;
 ARCHITECTURE structural OF pantalla_comienzo IS
@@ -43,6 +45,9 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 	SIGNAL G_tablero 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL B_tablero 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	
+	SIGNAL pos_x_divided_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL pos_y_divided_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
+	
  BEGIN 
 	--
 	--BORDES EXTERNOS
@@ -62,7 +67,7 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 	--INICIO LETras
 	x_letras <= std_logic_vector(to_unsigned(15,10));
 	--
-	PROCESS(clk, pos_x, pos_y,tablero_snake)
+	PROCESS(clk, pos_x, pos_y,tablero_snake,tablero_food)
 	BEGIN
 		IF (rising_edge(clk)) THEN
 			-- Borde exterior	
@@ -81,10 +86,14 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 					R <= "0000";
 					G <= "1111";
 					B <= "0000";
-				ELSE
+				ELSIF(tablero_food='1') THEN
+					R <= "1111";
+					G <= "0000";
+					B <= "0000";
+				ELSE	
 					R <= "0000";
 					G <= "0000";
-					B <= "1111";
+					B <= "0000";
 				END IF;
 			-- Espacio titulo
 			ELSIF (pos_x<=x_2 AND pos_x>=x_1 AND pos_y>=y_2 AND pos_y<=y_bordeSup_Menor) THEN
@@ -148,11 +157,5 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 							centenas => centenas,
 							miles => miles,
 							decenas_miles => decenas_miles);
-							
---	TABLERO:  ENTITY work.play_image
---		   PORT MAP(	tablero_snake 	=> tablero_snake,
---							R 	=> R_tablero,
---							G 	=> G_tablero,
---							B 	=> B_tablero);
 							
 END ARCHITECTURE structural;

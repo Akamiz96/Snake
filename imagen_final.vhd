@@ -13,8 +13,10 @@ ENTITY imagen_final IS
 				centenas 			:  IN  	STD_LOGIC_VECTOR(3 downto 0);
 				miles 				:  IN		STD_LOGIC_VECTOR(3 downto 0);
 				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0);
-				tablero_snake		:	IN		STD_LOGIC
---				tablero_food		:	IN		STD_LOGIC;
+				tablero_snake		:	IN		STD_LOGIC;
+				food_x			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				food_y			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				tablero_food		:	IN		STD_LOGIC
 	);
 END ENTITY imagen_final;
 ARCHITECTURE structural OF imagen_final IS
@@ -38,10 +40,13 @@ ARCHITECTURE structural OF imagen_final IS
 							G 	=> G_comienzo,
 							B 	=> B_comienzo,
 							tablero_snake	=> tablero_snake,
+							tablero_food	=> tablero_food,
 							unidades => unidades,
 							decenas => decenas,
 							centenas => centenas,
 							miles => miles,
-							decenas_miles => decenas_miles);
+							decenas_miles => decenas_miles,
+							food_x			=> food_x,
+							food_y			=> food_y);
 	
 END ARCHITECTURE structural;

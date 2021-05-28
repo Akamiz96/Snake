@@ -29,13 +29,13 @@ BEGIN
 	counter_rand_one <= counter_rand_one_s;
 	counter_rand_two <= counter_rand_two_s;
 	
-	load_one_s	<=	'1' WHEN counter_rand_one_s = "01110111"	ELSE 
+	load_one_s	<=	'1' WHEN counter_rand_one_s = "00111101"	ELSE 
 					'0';
 
 	load_two_s	<=	'1' WHEN counter_rand_two_s = "00000000"	ELSE 
 					'0';
 	
-	max_tick	<=	'1' WHEN counter_rand_one_s = "01110111"	ELSE 
+	max_tick	<=	'1' WHEN counter_rand_one_s = "00111101"	ELSE 
 					'0';
 
 	min_tick	<=	'1' WHEN counter_rand_two_s = "00000000"	ELSE 
@@ -64,7 +64,7 @@ BEGIN
 								load	=> load_two_s,
 								up	=> up_two_s,
 								sel => '0',
-								d	=> "01001111",
+								d	=> "00101000",
 								max_tick	=> max_tick_s,
 								min_tick	=> min_tick_s,
 								counter	=> counter_rand_two_s);

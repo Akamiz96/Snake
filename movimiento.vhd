@@ -31,41 +31,45 @@ BEGIN
 	x_out <= STD_LOGIC_VECTOR(to_unsigned(x_in,6));
 	y_out <= STD_LOGIC_VECTOR(to_unsigned(y_in,6));
 	------------------------
-	PROCESS(clk,x_in,y_in,selX,selY)
+	PROCESS(clk,x_in,y_in,selX,selY,rst)
 	BEGIN
 		IF (rising_edge(clk)) THEN 
-			IF(selX="01")THEN
-				IF(x_in < 61) THEN
-					x_in  <= x_in + 1;
-				ELSE
-					x_in <= 0;
+			IF(rst = '1') THEN 
+				x_in <= 31;
+				y_in <= 20;
+			ELSE
+				IF(selX="01")THEN
+					IF(x_in < 61) THEN
+						x_in  <= x_in + 1;
+					ELSE
+						x_in <= 0;
+					END IF;
 				END IF;
-			END IF;
-			
-			IF(selX="10")THEN
-				IF(x_in > 0) THEN
-					x_in  <= x_in - 1;
-				ELSE
-					x_in <= 61;
+				
+				IF(selX="10")THEN
+					IF(x_in > 0) THEN
+						x_in  <= x_in - 1;
+					ELSE
+						x_in <= 61;
+					END IF;
 				END IF;
-			END IF;
-			
-			IF(selY="01")THEN
-				IF(y_in < 40) THEN
-					y_in  <= y_in + 1;
-				ELSE
-					y_in <= 0;
+				
+				IF(selY="01")THEN
+					IF(y_in < 40) THEN
+						y_in  <= y_in + 1;
+					ELSE
+						y_in <= 0;
+					END IF;
 				END IF;
-			END IF;
-			
-			IF(selY="10")THEN
-				IF(y_in > 0) THEN
-					y_in  <= y_in - 1;
-				ELSE
-					y_in <= 40;
+				
+				IF(selY="10")THEN
+					IF(y_in > 0) THEN
+						y_in  <= y_in - 1;
+					ELSE
+						y_in <= 40;
+					END IF;
 				END IF;
-			END IF;
-			
+			END IF;			
 		END IF;
 	END PROCESS;
 	------------------------

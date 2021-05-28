@@ -27,6 +27,7 @@ ARCHITECTURE structural OF snake_screen IS
 	SIGNAL pos_x_tablero_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL pos_y_tablero_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL tablero_snake_s		:	STD_LOGIC;
+	SIGNAL tablero_food_s		:	STD_LOGIC;
 	
 	SIGNAL pintar_x_s				:  STD_LOGIC_VECTOR(5 DOWNTO 0);
 	SIGNAL pintar_y_s				:  STD_LOGIC_VECTOR(5 DOWNTO 0);
@@ -51,37 +52,16 @@ ARCHITECTURE structural OF snake_screen IS
 	SIGNAL comida_s	:	STD_LOGIC;
 	SIGNAL dato_pintar_s	:	STD_LOGIC;
 	SIGNAL dato_comida_s	:	STD_LOGIC;
+	
+	SIGNAL mem_unidades_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL mem_decenas_s				:	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL mem_centenas_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL mem_unidades_miles_s	:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	-----------------
---	SIGNAL new_data_s		:	STD_LOGIC;
---	SIGNAL but_value_s	:	STD_LOGIC_VECTOR(3 DOWNTO 0);
---	
---	SIGNAL max_tick_s	:	STD_LOGIC;
---	SIGNAL ena_tb			:	STD_LOGIC := '1';
---	SIGNAL syn_tb			:	STD_LOGIC := '0';
---	SIGNAL min_tickRY_s	:	STD_LOGIC;
---	SIGNAL counterRY_s	:	STD_LOGIC_VECTOR(16 DOWNTO 0);
---	
---	SIGNAL buttonUp_s	:	STD_LOGIC;
---	SIGNAL buttonDown_s	:	STD_LOGIC;
---	SIGNAL buttonLeft_s	:	STD_LOGIC;
---	SIGNAL buttonRight_s	:	STD_LOGIC;
---	
---	SIGNAL pintar_x_s	:	STD_LOGIC_VECTOR(7 DOWNTO 0);
---	SIGNAL pintar_y_s	:	STD_LOGIC_VECTOR(7 DOWNTO 0);
---	SIGNAL food_x_s	:	STD_LOGIC_VECTOR(7 DOWNTO 0);
---	SIGNAL food_y_s	:	STD_LOGIC_VECTOR(7 DOWNTO 0);
---	
---	SIGNAL comida_s	:	STD_LOGIC;
---	SIGNAL dato_pintar_s	:	STD_LOGIC;
---	SIGNAL dato_comida_s	:	STD_LOGIC;
---	
---	SIGNAL mem_unidades_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
---	SIGNAL mem_decenas_s				:	STD_LOGIC_VECTOR(3 DOWNTO 0);
---	SIGNAL mem_centenas_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
---	SIGNAL mem_unidades_miles_s	:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 
  BEGIN 
 	led <= we_s;
+	
 	VGA : ENTITY work.prueba_VGA
 	PORT MAP(clk 				=> clk,
 				rst				=>	rst,
@@ -90,14 +70,17 @@ ARCHITECTURE structural OF snake_screen IS
 				VGA_R 			=> VGA_R,
 				VGA_G 			=> VGA_G,
 				VGA_B  			=> VGA_B,
-				unidades 		=> enter,
-				decenas 			=> enter,
-				centenas 		=> enter,
-				miles 			=> enter,
+				unidades 		=> mem_unidades_s,
+				decenas 			=> mem_decenas_s,
+				centenas 		=> mem_centenas_s,
+				miles 			=> mem_unidades_miles_s,
 				decenas_miles 	=> enter,
 				pos_x_tablero 	=> pos_x_tablero_s,
 				pos_y_tablero 	=> pos_y_tablero_s,
 				tablero_snake 	=> tablero_snake_s,
+				tablero_food	=> tablero_food_s,
+				food_x			=> food_x_s,
+				food_y			=> food_y_s,
 				enter 			=> enter);
 				
 	MEM_SNAKE : ENTITY work.memoria_snake
@@ -107,8 +90,8 @@ ARCHITECTURE structural OF snake_screen IS
 				 pintar_y 			=>	pintar_y_s,			
 				 pantalla_x 		=>	pos_x_tablero_s,		
 				 pantalla_y			=>	pos_y_tablero_s,						
-				 comida_x			=> comida_x_s,	
-				 comida_y			=>	comida_y_s,		
+				 comida_x			=> food_x_s(5 DOWNTO 0),	
+				 comida_y			=>	food_y_s(5 DOWNTO 0),		
 				 we		 			=>	we_s,
 				 pintar_despintar => pintar_despintar_s,
 				 pantalla_dato		=>	tablero_snake_s,
@@ -137,10 +120,7 @@ ARCHITECTURE structural OF snake_screen IS
 						buttonDown	=> buttonDown_s,
 						buttonLeft	=> buttonLeft_s,
 						buttonRight	=> buttonRight_s);
-	
---	pintar_x_s <= pos_x_tablero_s(7 DOWNTO 0);
---	pintar_y_s <= pos_y_tablero_s(7 DOWNTO 0);
---	
+
 	snake : ENTITY work.snake
 	PORT MAP(clk		    	=>	clk,	
 				rst			 	=>	rst,
@@ -153,75 +133,30 @@ ARCHITECTURE structural OF snake_screen IS
 				buttonDown   	=> buttonDown_s,
 				buttonLeft   	=> buttonLeft_s,
 				buttonRight  	=> buttonRight_s,
-				food_x			=> food_x_s,
-				food_y			=> food_y_s,
-				comida			=> comida_s,
-				dato_pintar		=> dato_pintar_s,
-				dato_comida		=> dato_comida_s);
---				
---	CONV: ENTITY work.conv_control
---	PORT MAP(		clk 			=> clk,
---						rst 			=> rst,
---						new_data		=> new_data_s,
---						but_value	=> but_value_s,
---						max_tick		=> max_tick_s,
---						buttonUp		=> buttonUp_s,
---						buttonDown	=> buttonDown_s,
---						buttonLeft	=> buttonLeft_s,
---						buttonRight	=> buttonRight_s);
---						
---	TECL : ENTITY work.teclado
---	PORT MAP(clk 			=> clk,
---				rst			=>	rst,
---				input1		=> input1,
---				input2		=> input2,
---				input3		=> input3,
---				input4		=> input4,
---				column1		=> column1,
---				column2		=> column2,
---				column3		=> column3,
---				column4		=> column4,
---				new_data		=> new_data_s,
---				but_value	=> but_value_s);
---	
---	VGA : ENTITY work.prueba_VGA
---	PORT MAP(clk 			=> clk,
---				rst			=>	rst,
---				VGA_HS 		=> VGA_HS,
---				VGA_VS 		=> VGA_VS,
---				VGA_R 		=> VGA_R,
---				VGA_G 		=> VGA_G,
---				VGA_B  		=> VGA_B,
---				unidades => mem_unidades_s,
---				decenas => mem_decenas_s,
---				centenas => mem_centenas_s,
---				miles => mem_unidades_miles_s,
---				decenas_miles => "0000",
---				pos_x_tablero => pos_x_tablero_s,
---				pos_y_tablero => pos_y_tablero_s,
---				tablero_snake => dato_pintar_s,
---				enter 		=> enter);
---				
---	TMR: 		ENTITY work.timer_mov
---				PORT MAP(  	clk	=> clk,
---								rst	=> rst,
---								ena	=> ena_tb, 
---								syn_clr	=> syn_tb,
---								max_tick	=> max_tick_s,
---								min_tick	=> min_tickRY_s,
---								counter	=> counterRY_s);
---	
---	FOOD: 	ENTITY work.FOOD
---				PORT MAP(  	clk	=> clk,
---								rst	=> rst,
---								start=> '1',
---								alive=>dato_comida_s,
---								ena_food=>comida_s,
---								food_x=>food_x_s,
---								food_y=>food_y_s,
---								mem_unidades=>mem_unidades_s,
---								mem_decenas=>mem_decenas_s,
---								mem_centenas=>mem_centenas_s,
---								mem_unidades_miles=>mem_unidades_miles_s);
+				food_x		=> food_x_s(5 DOWNTO 0),
+				food_y		=> food_y_s(5 DOWNTO 0),
+				comida		=> comida_s);
+
+	FOOD: 	ENTITY work.FOOD
+				PORT MAP(  	clk	=> clk,
+								rst	=> rst,
+								start=> '1',
+								alive=>comida_dato_s,
+								ena_food=>comida_s,
+								food_x=>food_x_s,
+								food_y=>food_y_s,
+								mem_unidades=>mem_unidades_s,
+								mem_decenas=>mem_decenas_s,
+								mem_centenas=>mem_centenas_s,
+								mem_unidades_miles=>mem_unidades_miles_s);
+	
+	PROCESS(pos_x_tablero_s,pos_y_tablero_s,tablero_food_s)
+	BEGIN
+		IF (pos_x_tablero_s="00"&food_x_s AND pos_y_tablero_s="00"&food_y_s) THEN 
+			tablero_food_s <= '1';
+		ELSE 
+			tablero_food_s <= '0';
+		END IF;
+	END PROCESS;
 	
 END ARCHITECTURE structural;
