@@ -28,9 +28,9 @@ BEGIN
 		
 	counter <= counter_s;
 	
-	load_s	<=	'1' WHEN counter_s = "1001110001000000"	ELSE 
+	load_s	<=	'1' WHEN counter_s = "0100111000100000"	ELSE 
 					'0';
-	max_tick	<=	'1' WHEN counter_s = "1001110001000000"	ELSE 
+	max_tick	<=	'1' WHEN counter_s = "0100111000100000"	ELSE 
 					'0';
 	--Pruebas TestBench
 	--load_s	<=	'1' WHEN counter_s = "1100001101010000"	ELSE 

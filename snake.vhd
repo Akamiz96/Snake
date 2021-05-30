@@ -68,18 +68,86 @@ ARCHITECTURE structural OF snake IS
 	
 	SIGNAL stop_snake		:	STD_LOGIC;
 	SIGNAL choque		:	STD_LOGIC;
+	
+	SIGNAL sel_timer	:	STD_LOGIC_VECTOR(2 DOWNTO 0) := "000";
+	SIGNAL timer_mov_counter	:	STD_LOGIC_VECTOR(26 DOWNTO 0);
+	
+	SIGNAL mem_unidades_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL mem_decenas_s				:	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL mem_centenas_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL mem_unidades_miles_s	:	STD_LOGIC_VECTOR(3 DOWNTO 0);
+	SIGNAL puntaje	:	STD_LOGIC_VECTOR(15 DOWNTO 0);
+	--CONSTANTES 
+	CONSTANT CERO 	:  STD_LOGIC_VECTOR(3 downto 0):= "0000";
+	CONSTANT UNO	:  STD_LOGIC_VECTOR(3 downto 0):= "0001";
+	CONSTANT DOS	:  STD_LOGIC_VECTOR(3 downto 0):= "0010";
+	CONSTANT TRES	:  STD_LOGIC_VECTOR(3 downto 0):= "0011";
+	CONSTANT CUATRO:  STD_LOGIC_VECTOR(3 downto 0):= "0100";
+	CONSTANT CINCO :  STD_LOGIC_VECTOR(3 downto 0):= "0101";
+	CONSTANT SEIS	:  STD_LOGIC_VECTOR(3 downto 0):= "0110";
+	CONSTANT SIETE :  STD_LOGIC_VECTOR(3 downto 0):= "0111";
+	CONSTANT OCHO	:  STD_LOGIC_VECTOR(3 downto 0):= "1000";
+	CONSTANT NUEVE	:  STD_LOGIC_VECTOR(3 downto 0):= "1001";
+	--
+	
+	SIGNAL syn_timer_mov		:	STD_LOGIC;
+	SIGNAL syn_change_time		:	STD_LOGIC;
 
  BEGIN 
  
 	pintar_x <= pintar_x_s;
 	pintar_y <= pintar_y_s;
+	
+	
 		
 	stop_snake <= stop OR choque; 
+	
+	syn_timer_mov <= syn_tb OR syn_change_time;
 	
 	obstacle <= obstacle_1 WHEN selector_tablero = "00" ELSE 
 					obstacle_2 WHEN selector_tablero = "01" ELSE
 					obstacle_3 WHEN selector_tablero = "10" ELSE
 					obstacle_1 WHEN selector_tablero = "11";
+					
+	mem_unidades <= mem_unidades_s;
+	mem_decenas <= mem_decenas_s;
+	mem_centenas <= mem_centenas_s;
+	mem_unidades_miles <= mem_unidades_miles_s;
+	puntaje <= mem_unidades_miles_s & mem_centenas_s & mem_decenas_s & mem_unidades_s;
+	PROCESS(puntaje)
+	VARIABLE selector_timer_anterior : STD_LOGIC_VECTOR(2 downto 0) := "000";
+	BEGIN
+		IF (rising_edge(clk)) THEN
+			IF(puntaje < CERO&CERO&UNO&CERO) THEN
+				IF("000" /= selector_timer_anterior) THEN
+					syn_change_time <= '1';
+					sel_timer <= "000";
+					selector_timer_anterior := "000";
+				ELSE
+					syn_change_time <= '0';
+					sel_timer <= "000";
+				END IF;
+			ELSIF (puntaje < CERO&CERO&DOS&CERO) THEN
+				IF("001" /= selector_timer_anterior) THEN
+					syn_change_time <= '1';
+					sel_timer <= "001";
+					selector_timer_anterior := "001";
+				ELSE
+					syn_change_time <= '0';
+					sel_timer <= "001";
+				END IF;
+			ELSE
+				IF("010" /= selector_timer_anterior) THEN
+					syn_change_time <= '1';
+					sel_timer <= "010";
+					selector_timer_anterior := "010";
+				ELSE
+					syn_change_time <= '0';
+					sel_timer <= "010";
+				END IF;
+			END IF;
+		END IF;
+	END PROCESS;
 	
 	fsm : ENTITY work.snake_controller
 	PORT MAP(clk		    	=>	clk,	
@@ -104,10 +172,11 @@ ARCHITECTURE structural OF snake IS
 			PORT MAP(  	clk	=> clk,
 							rst	=> rst,
 							ena	=> ena_tb, 
-							syn_clr	=> syn_tb,
+							syn_clr	=> syn_change_time,
 							max_tick	=> max_tick_s,
 							min_tick	=> min_tickRY_s,
-							counter	=> counterRY_s);
+							counter	=> counterRY_s,
+							max_count => timer_mov_counter);
 	
 	TMR_SCORE: 		ENTITY work.timer_score
 			PORT MAP(  	clk	=> clk,
@@ -127,16 +196,20 @@ ARCHITECTURE structural OF snake IS
 							obstacle => obstacle,
 							choque => choque,
 							stop => stop);
+	
+	MEM_TMR:  ENTITY work.mem_timer
+		   PORT MAP(	pos_x 		=> sel_timer,
+							max_tiempo	=> timer_mov_counter);
 							
 	ScoreGame: ENTITY	work.score
 		PORT MAP	(	clk	=> clk,
 						rst	=> rst,
 						clear => clear_s,
 						ena_score		=>	ena_score_s,
-						mem_unidades	=>	mem_unidades,
-						mem_decenas		=>		mem_decenas,
-						mem_centenas	=>			mem_centenas,
-						mem_unidades_miles	=>	mem_unidades_miles);
+						mem_unidades	=>	mem_unidades_s,
+						mem_decenas		=>		mem_decenas_s,
+						mem_centenas	=>			mem_centenas_s,
+						mem_unidades_miles	=>	mem_unidades_miles_s);
 						
 	OBTACLE3:  ENTITY work.obstacle_image_ref
 		   PORT MAP(	limite_x => std_logic_vector(to_unsigned(0,6)),

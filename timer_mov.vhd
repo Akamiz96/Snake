@@ -10,7 +10,8 @@ ENTITY timer_mov IS
 				syn_clr		:	IN 	STD_LOGIC;
 				max_tick		:	OUT 	STD_LOGIC;
 				min_tick		:	OUT 	STD_LOGIC;
-				counter		:	OUT 	STD_LOGIC_VECTOR(N_50-1 DOWNTO 0));
+				counter		:	OUT 	STD_LOGIC_VECTOR(N_50-1 DOWNTO 0);
+				max_count 	: 	IN 	STD_LOGIC_VECTOR(N_50-1 DOWNTO 0));
 END ENTITY;
 ----------------------------------------
 ARCHITECTURE structural OF timer_mov IS 
@@ -29,9 +30,9 @@ BEGIN
 	counter <= counter_s;
 	-- 10111110101111000010000000 50M
 	-- 01011111010111100001000000 25M
-	load_s	<=	'1' WHEN counter_s = "001011111010111100001000000"	ELSE 
+	load_s	<=	'1' WHEN counter_s = max_count	ELSE 
 					'0';
-	max_tick	<=	'1' WHEN counter_s = "001011111010111100001000000"	ELSE 
+	max_tick	<=	'1' WHEN counter_s = max_count	ELSE 
 					'0';
 	--Pruebas TestBench 11110100001001000000
 	--load_s	<=	'1' WHEN counter_s = "1111"	ELSE 
