@@ -3,20 +3,20 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.all;
 -------------------------------------------------------------------------------
-ENTITY obstacle_image_1 IS
+ENTITY obstacle_image_1_ref IS
 	GENERIC	(DATA_WIDTH: INTEGER := 62;
 				 ADDR_WIDTH: INTEGER := 6);
-	PORT	(	limite_x, limite_y:	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-				pos_x, pos_y		: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
+	PORT	(	limite_x, limite_y:	IN 	STD_LOGIC_VECTOR(5 DOWNTO 0);
+				pos_x, pos_y		: 	IN 	STD_LOGIC_VECTOR(5 DOWNTO 0);
 				obstacle				: 	OUT 	STD_LOGIC
 	);
-END ENTITY obstacle_image_1;
-ARCHITECTURE structural OF obstacle_image_1 IS
+END ENTITY obstacle_image_1_ref;
+ARCHITECTURE structural OF obstacle_image_1_ref IS
 	
 	TYPE mem_2d_type IS ARRAY (0 to 2**ADDR_WIDTH-1) OF STD_LOGIC_VECTOR(DATA_WIDTH-1 DOWNTO 0);
 	SIGNAL array_reg	:	mem_2d_type;
-	SIGNAL pos_y_divided	: 	STD_LOGIC_VECTOR(9 DOWNTO 0);
-	SIGNAL pos_x_divided	: 	STD_LOGIC_VECTOR(9 DOWNTO 0);
+	SIGNAL pos_y_divided	: 	STD_LOGIC_VECTOR(5 DOWNTO 0);
+	SIGNAL pos_x_divided	: 	STD_LOGIC_VECTOR(5 DOWNTO 0);
 	SIGNAL mem				: 	STD_LOGIC;
 
  BEGIN 
@@ -64,8 +64,8 @@ ARCHITECTURE structural OF obstacle_image_1 IS
 	
 	PROCESS(pos_x, pos_y)
 	BEGIN
-		pos_y_divided <= std_logic_vector((unsigned(pos_y)-unsigned(limite_y))/10);
-		pos_x_divided <= std_logic_vector((unsigned(pos_x)-unsigned(limite_x))/10);
+		pos_y_divided <= std_logic_vector((unsigned(pos_y)-unsigned(limite_y)));
+		pos_x_divided <= std_logic_vector((unsigned(pos_x)-unsigned(limite_x)));
 		mem <= array_reg(to_integer(unsigned(pos_y_divided)))(to_integer(unsigned(pos_x_divided)));
 	END PROCESS;
 	obstacle <= mem;

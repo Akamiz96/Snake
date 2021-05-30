@@ -18,8 +18,7 @@ ENTITY snake_screen IS
 				VGA_HS 						:  OUT STD_LOGIC;
 				VGA_VS 						:	OUT STD_LOGIC;
 				VGA_R, VGA_G, VGA_B 		: 	OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-				led				: OUT STD_LOGIC;
-				enter 		:  IN 	STD_LOGIC_VECTOR(3 downto 0)
+				selector_tablero 		:  IN 	STD_LOGIC_VECTOR(1 downto 0)
 	);
 END ENTITY snake_screen;
 ARCHITECTURE structural OF snake_screen IS
@@ -65,10 +64,27 @@ ARCHITECTURE structural OF snake_screen IS
 	SIGNAL ena_save_s:	STD_LOGIC;
 	SIGNAL obstacle:	STD_LOGIC;
 	
+	SIGNAL cambio_tablero:	STD_LOGIC;
+	SIGNAL rst_cambio_tablero:	STD_LOGIC;
+	
 	-----------------
 
  BEGIN 
-	led <= we_s;
+ 
+	PROCESS(clk,selector_tablero)
+	VARIABLE selector_tablero_anterior : STD_LOGIC_VECTOR(1 downto 0) := "00";
+	BEGIN
+		IF (rising_edge(clk)) THEN
+			IF(selector_tablero /= selector_tablero_anterior) THEN
+				cambio_tablero <= '1';
+				selector_tablero_anterior := selector_tablero;
+			ELSE
+				cambio_tablero <= '0';
+			END IF;
+		END IF;
+	END PROCESS;
+	
+	rst_cambio_tablero <= rst OR cambio_tablero;
 	
 	VGA : ENTITY work.prueba_VGA
 	PORT MAP(clk 				=> clk,
@@ -82,18 +98,18 @@ ARCHITECTURE structural OF snake_screen IS
 				decenas 			=> mem_decenas_s,
 				centenas 		=> mem_centenas_s,
 				miles 			=> mem_unidades_miles_s,
-				decenas_miles 	=> enter,
+				decenas_miles 	=> "0000",
 				pos_x_tablero 	=> pos_x_tablero_s,
 				pos_y_tablero 	=> pos_y_tablero_s,
 				tablero_snake 	=> tablero_snake_s,
 				tablero_food	=> tablero_food_s,
 				food_x			=> food_x_s,
 				food_y			=> food_y_s,
-				enter 			=> enter);
+				selector_tablero	=> selector_tablero);
 				
 	MEM_SNAKE : ENTITY work.memoria_snake
 	PORT MAP( clk			 		=>	clk,				
-				 rst			 		=>	rst,			
+				 rst			 		=>	rst_cambio_tablero,			
 				 pintar_x	 		=>	pintar_x_s,		
 				 pintar_y 			=>	pintar_y_s,			
 				 pantalla_x 		=>	pos_x_tablero_s,		
@@ -109,7 +125,7 @@ ARCHITECTURE structural OF snake_screen IS
 						
 	TECL : ENTITY work.teclado
 	PORT MAP(clk 			=> clk,
-				rst			=>	rst,
+				rst			=>	rst_cambio_tablero,
 				input1		=> input1,
 				input2		=> input2,
 				input3		=> input3,
@@ -123,7 +139,7 @@ ARCHITECTURE structural OF snake_screen IS
 				
 	CONV: ENTITY work.conv_control
 	PORT MAP(		clk 			=> clk,
-						rst 			=> rst,
+						rst 			=> rst_cambio_tablero,
 						new_data		=> new_data_s,
 						but_value	=> but_value_s,
 						buttonUp		=> buttonUp_s,
@@ -133,7 +149,7 @@ ARCHITECTURE structural OF snake_screen IS
 
 	snake : ENTITY work.snake
 	PORT MAP(clk		    	=>	clk,	
-				rst			 	=>	rst,
+				rst			 	=>	rst_cambio_tablero,
 				stop				=> stop,
 				pintar_x	 		=>	pintar_x_s,		
 				pintar_y 		=>	pintar_y_s,
@@ -149,31 +165,7 @@ ARCHITECTURE structural OF snake_screen IS
 				mem_unidades=>mem_unidades_s,
 				mem_decenas=>mem_decenas_s,
 				mem_centenas=>mem_centenas_s,
-				mem_unidades_miles=>mem_unidades_miles_s);
-
---	FOOD: 	ENTITY work.FOOD
---				PORT MAP(  	clk	=> clk,
---								rst	=> rst,
---								start=> '1',
---								alive=>comida_dato_s,
---								ena_food=>comida_s,
---								food_x=>food_x_s,
---								food_y=>food_y_s,
---								ena_save => ena_save_s,
---								mem_unidades=>mem_unidades_s,
---								mem_decenas=>mem_decenas_s,
---								mem_centenas=>mem_centenas_s,
---								mem_unidades_miles=>mem_unidades_miles_s);
-	
---	PROCESS(ena_save_s)
---	BEGIN
---		IF (ena_save_s='1') THEN 
---			we_comida_s <= '1';
---			pintar_despintar_comida_s <= '1';
---		ELSE 
---			we_comida_s <= '0';
---			pintar_despintar_comida_s <= '0';
---		END IF;
---	END PROCESS;
-	
+				mem_unidades_miles=>mem_unidades_miles_s,
+				selector_tablero	=> selector_tablero);
+				
 END ARCHITECTURE structural;

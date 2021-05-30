@@ -22,7 +22,9 @@ ENTITY snake IS
 				mem_unidades		:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
 				mem_decenas				:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
 				mem_centenas				:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-				mem_unidades_miles		:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0));
+				mem_unidades_miles		:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+				selector_tablero 		:  IN 	STD_LOGIC_VECTOR(1 downto 0)
+);
 END ENTITY snake;
 ARCHITECTURE structural OF snake IS
 
@@ -59,7 +61,11 @@ ARCHITECTURE structural OF snake IS
 	SIGNAL min_tick_tmr	:	STD_LOGIC;
 	SIGNAL counter_tmr	:	STD_LOGIC_VECTOR(25 DOWNTO 0);
 	
-	SIGNAL obstacle		:	STD_LOGIC;
+	SIGNAL obstacle	: STD_LOGIC;
+	SIGNAL obstacle_1	: STD_LOGIC;
+	SIGNAL obstacle_2	: STD_LOGIC;
+	SIGNAL obstacle_3	: STD_LOGIC;
+	
 	SIGNAL stop_snake		:	STD_LOGIC;
 	SIGNAL choque		:	STD_LOGIC;
 
@@ -69,6 +75,11 @@ ARCHITECTURE structural OF snake IS
 	pintar_y <= pintar_y_s;
 		
 	stop_snake <= stop OR choque; 
+	
+	obstacle <= obstacle_1 WHEN selector_tablero = "00" ELSE 
+					obstacle_2 WHEN selector_tablero = "01" ELSE
+					obstacle_3 WHEN selector_tablero = "10" ELSE
+					obstacle_1 WHEN selector_tablero = "11";
 	
 	fsm : ENTITY work.snake_controller
 	PORT MAP(clk		    	=>	clk,	
@@ -127,11 +138,26 @@ ARCHITECTURE structural OF snake IS
 						mem_centenas	=>			mem_centenas,
 						mem_unidades_miles	=>	mem_unidades_miles);
 						
-	OBTACLE:  ENTITY work.obstacle_image_ref
+	OBTACLE3:  ENTITY work.obstacle_image_ref
 		   PORT MAP(	limite_x => std_logic_vector(to_unsigned(0,6)),
 							limite_y => std_logic_vector(to_unsigned(0,6)),
 							pos_x 	=> pintar_x_s,
 							pos_y 	=> pintar_y_s,
-							obstacle => obstacle);
+							obstacle => obstacle_3);
+	
+	OBTACLE1:  ENTITY work.obstacle_image_1_ref
+		   PORT MAP(	limite_x => std_logic_vector(to_unsigned(0,6)),
+							limite_y => std_logic_vector(to_unsigned(0,6)),
+							pos_x 	=> pintar_x_s,
+							pos_y 	=> pintar_y_s,
+							obstacle => obstacle_1);
+							
+							
+	OBTACLE2:  ENTITY work.obstacle_image_2_ref
+		   PORT MAP(	limite_x => std_logic_vector(to_unsigned(0,6)),
+							limite_y => std_logic_vector(to_unsigned(0,6)),
+							pos_x 	=> pintar_x_s,
+							pos_y 	=> pintar_y_s,
+							obstacle => obstacle_2);
 	
 END ARCHITECTURE structural;

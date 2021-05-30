@@ -15,7 +15,8 @@ ENTITY pantalla_comienzo IS
 				miles 				:  IN		STD_LOGIC_VECTOR(3 downto 0);
 				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0);
 				food_x			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-				food_y			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0)
+				food_y			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
+				selector_tablero 		:  IN 	STD_LOGIC_VECTOR(1 downto 0)
 	);
 END ENTITY pantalla_comienzo;
 ARCHITECTURE structural OF pantalla_comienzo IS
@@ -46,6 +47,9 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 	SIGNAL B_tablero 	: STD_LOGIC_VECTOR(3 DOWNTO 0);
 	
 	SIGNAL obstacle	: STD_LOGIC;
+	SIGNAL obstacle_1	: STD_LOGIC;
+	SIGNAL obstacle_2	: STD_LOGIC;
+	SIGNAL obstacle_3	: STD_LOGIC;
 	
 	SIGNAL pos_x_divided_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL pos_y_divided_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
@@ -69,6 +73,12 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 	--INICIO LETras
 	x_letras <= std_logic_vector(to_unsigned(15,10));
 	--
+	
+	obstacle <= obstacle_1 WHEN selector_tablero = "00" ELSE 
+					obstacle_2 WHEN selector_tablero = "01" ELSE
+					obstacle_3 WHEN selector_tablero = "10" ELSE
+					obstacle_1 WHEN selector_tablero = "11";
+
 	PROCESS(clk, pos_x, pos_y,tablero_snake,tablero_food)
 	BEGIN
 		IF (rising_edge(clk)) THEN
@@ -166,6 +176,20 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 							limite_y => std_logic_vector(to_unsigned(60,10)),
 							pos_x 	=> pos_x,
 							pos_y 	=> pos_y,
-							obstacle => obstacle);
+							obstacle => obstacle_3);
+							
+	OBTACLE1:  ENTITY work.obstacle_image_1
+		   PORT MAP(	limite_x => std_logic_vector(to_unsigned(10,10)),
+							limite_y => std_logic_vector(to_unsigned(60,10)),
+							pos_x 	=> pos_x,
+							pos_y 	=> pos_y,
+							obstacle => obstacle_1);
+	
+	OBTACLE2:  ENTITY work.obstacle_image_2
+		   PORT MAP(	limite_x => std_logic_vector(to_unsigned(10,10)),
+							limite_y => std_logic_vector(to_unsigned(60,10)),
+							pos_x 	=> pos_x,
+							pos_y 	=> pos_y,
+							obstacle => obstacle_2);
 							
 END ARCHITECTURE structural;

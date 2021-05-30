@@ -20,8 +20,7 @@ ENTITY prueba_VGA IS
 				food_x			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 				food_y			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 				tablero_food		:	IN		STD_LOGIC;
-				enter 		:  IN 	STD_LOGIC_VECTOR(3 downto 0)
-				
+				selector_tablero 		:  IN 	STD_LOGIC_VECTOR(1 downto 0)
 	);
 END ENTITY prueba_VGA;
 
@@ -81,7 +80,8 @@ BEGIN
 						tablero_snake	=> tablero_snake,
 						tablero_food	=> tablero_food,
 						food_x			=> food_x,
-						food_y			=> food_y);
+						food_y			=> food_y,
+						selector_tablero	=> selector_tablero);
 						
 	DIVIDED: ENTITY work.pos_divided
 	PORT MAP(	limite_x => std_logic_vector(to_unsigned(10,10)),
