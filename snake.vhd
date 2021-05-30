@@ -118,7 +118,7 @@ ARCHITECTURE structural OF snake IS
 	VARIABLE selector_timer_anterior : STD_LOGIC_VECTOR(2 downto 0) := "000";
 	BEGIN
 		IF (rising_edge(clk)) THEN
-			IF(puntaje < CERO&CERO&UNO&CERO) THEN
+			IF(puntaje < CERO&CERO&DOS&CERO) THEN
 				IF("000" /= selector_timer_anterior) THEN
 					syn_change_time <= '1';
 					sel_timer <= "000";
@@ -127,7 +127,7 @@ ARCHITECTURE structural OF snake IS
 					syn_change_time <= '0';
 					sel_timer <= "000";
 				END IF;
-			ELSIF (puntaje < CERO&CERO&DOS&CERO) THEN
+			ELSIF (puntaje < CERO&CERO&CUATRO&CERO) THEN
 				IF("001" /= selector_timer_anterior) THEN
 					syn_change_time <= '1';
 					sel_timer <= "001";
@@ -136,14 +136,23 @@ ARCHITECTURE structural OF snake IS
 					syn_change_time <= '0';
 					sel_timer <= "001";
 				END IF;
-			ELSE
-				IF("010" /= selector_timer_anterior) THEN
+			ELSIF(puntaje < CERO&CERO&CINCO&CERO) THEN
+				IF("011" /= selector_timer_anterior) THEN
 					syn_change_time <= '1';
-					sel_timer <= "010";
-					selector_timer_anterior := "010";
+					sel_timer <= "011";
+					selector_timer_anterior := "011";
 				ELSE
 					syn_change_time <= '0';
-					sel_timer <= "010";
+					sel_timer <= "011";
+				END IF;
+			ELSE
+				IF("100" /= selector_timer_anterior) THEN
+					syn_change_time <= '1';
+					sel_timer <= "100";
+					selector_timer_anterior := "100";
+				ELSE
+					syn_change_time <= '0';
+					sel_timer <= "100";
 				END IF;
 			END IF;
 		END IF;
