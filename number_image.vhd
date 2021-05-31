@@ -30,26 +30,12 @@ ARCHITECTURE structural OF number_image IS
 	SIGNAL array_reg_8	:	mem_2d_type;
 	SIGNAL array_reg_9	:	mem_2d_type;
 	
-	SIGNAL digit_0	:	mem_2d_type;
-	SIGNAL digit_1	:	mem_2d_type;
-	SIGNAL digit_2	:	mem_2d_type;
-	SIGNAL digit_3	:	mem_2d_type;
-	SIGNAL digit_4	:	mem_2d_type;
-	
 	SIGNAL pos_y_divided	: 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL pos_x_divided	: 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL mem				: 	STD_LOGIC;
 	
-	SIGNAL R_color : STD_LOGIC_VECTOR(3 downto 0) := "1111";
-	SIGNAL G_color : STD_LOGIC_VECTOR(3 downto 0) := "1111";
-	SIGNAL B_color : STD_LOGIC_VECTOR(3 downto 0) := "1111";
-	
-	SIGNAL number_score	: 	STD_LOGIC_VECTOR(16 DOWNTO 0);
-	
-
  BEGIN 
 	
-	number_score <= "11000011010011111";
 	-- 0
 	array_reg_0(0) <= "0000";
 	array_reg_0(1) <= "0000";
@@ -98,17 +84,17 @@ ARCHITECTURE structural OF number_image IS
 	array_reg_4(4) <= "0111";
 	array_reg_4(5) <= "0100";
 	array_reg_4(6) <= "0100";
-	array_reg_0(7) <= "0000";
+	array_reg_4(7) <= "0000";
 	
 	-- 5
-	array_reg_4(0) <= "0000";
-	array_reg_4(1) <= "0000";
+	array_reg_5(0) <= "0000";
+	array_reg_5(1) <= "0000";
 	array_reg_5(2) <= "0111";
 	array_reg_5(3) <= "0001";
 	array_reg_5(4) <= "0111";
 	array_reg_5(5) <= "0100";
 	array_reg_5(6) <= "0111";
-	array_reg_4(7) <= "0000";
+	array_reg_5(7) <= "0000";
 	
 	-- 6
 	array_reg_6(0) <= "0000";
@@ -150,13 +136,11 @@ ARCHITECTURE structural OF number_image IS
 	array_reg_9(6) <= "0111";
 	array_reg_9(7) <= "0000";
 	
-	digit_0 <= array_reg_0;
-	digit_1 <= array_reg_1;
-	digit_2 <= array_reg_2;
-	digit_3 <= array_reg_3;
-	digit_4 <= array_reg_4;
 	
-	PROCESS(pos_x, pos_y, number_score,decenas_miles)
+	PROCESS(mem,pos_y,limite_y,pos_x,limite_x,pos_y_divided,pos_x_divided,
+			  array_reg_0,array_reg_1,array_reg_2,array_reg_3,array_reg_4,
+			  array_reg_5,array_reg_6,array_reg_7,array_reg_8,array_reg_9,
+			  unidades, decenas,centenas,miles,decenas_miles)
 	BEGIN
 		
 		pos_y_divided <= std_logic_vector((unsigned(pos_y)-unsigned(limite_y))/5);
@@ -290,9 +274,9 @@ ARCHITECTURE structural OF number_image IS
 			mem <= '0';
 		END IF;
 		IF (mem = '1') THEN 
-			R <= R_color;
-			G <= G_color;
-			B <= B_color;
+			R <= "1111";
+			G <= "1111";
+			B <= "1111";
 		ELSE
 			R <= "0000";
 			G <= "0000";

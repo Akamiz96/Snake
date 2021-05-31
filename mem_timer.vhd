@@ -30,7 +30,7 @@ ARCHITECTURE structural OF mem_timer IS
 	---------------------------------------------------------
 	array_reg(6)  <= "010011000100101101000000000"; -- 10 M 
 	array_reg(7)  <= "010011000100101101000000000"; -- 10 M 
-	PROCESS(pos_x)
+	PROCESS(pos_x,array_reg)
 	BEGIN
 		max_tiempo <= array_reg(to_integer(unsigned(pos_x)));
 	END PROCESS;

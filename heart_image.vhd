@@ -29,7 +29,7 @@ ARCHITECTURE structural OF heart_image IS
 	array_reg(6) <= "00000100000";
 	array_reg(7) <= "00000000000";
 	
-	PROCESS(pos_x, pos_y)
+	PROCESS(mem,pos_y,limite_y,pos_x,limite_x,pos_y_divided,pos_x_divided,array_reg)
 	BEGIN
 		pos_y_divided <= std_logic_vector((unsigned(pos_y)-unsigned(limite_y))/5);
 		pos_x_divided <= std_logic_vector((unsigned(pos_x)-unsigned(limite_x))/5);

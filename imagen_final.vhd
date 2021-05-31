@@ -5,7 +5,6 @@ USE IEEE.NUMERIC_STD.all;
 -------------------------------------------------------------------------------
 ENTITY imagen_final IS
 	PORT	(	clk 					:  IN 	STD_LOGIC;
-				x, y	 				: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				pos_x, pos_y		: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0);
 				unidades 			:  IN		STD_LOGIC_VECTOR(3 downto 0);
@@ -14,9 +13,6 @@ ENTITY imagen_final IS
 				miles 				:  IN		STD_LOGIC_VECTOR(3 downto 0);
 				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0);
 				tablero_snake		:	IN		STD_LOGIC;
-				food_x			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-				food_y			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-				tablero_food		:	IN		STD_LOGIC;
 				selector_tablero 		:  IN 	STD_LOGIC_VECTOR(1 downto 0)
 	);
 END ENTITY imagen_final;
@@ -41,14 +37,11 @@ ARCHITECTURE structural OF imagen_final IS
 							G 	=> G_comienzo,
 							B 	=> B_comienzo,
 							tablero_snake	=> tablero_snake,
-							tablero_food	=> tablero_food,
 							unidades => unidades,
 							decenas => decenas,
 							centenas => centenas,
 							miles => miles,
 							decenas_miles => decenas_miles,
-							food_x			=> food_x,
-							food_y			=> food_y,
 							selector_tablero	=> selector_tablero);
 	
 END ARCHITECTURE structural;

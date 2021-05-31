@@ -48,15 +48,7 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
-set_global_assignment -name VHDL_FILE binary_bcd.vhd
-set_global_assignment -name VHDL_FILE binary_bcd_tb.vhd
-set_global_assignment -name VHDL_FILE score.vhd
-set_global_assignment -name VHDL_FILE score_tb.vhd
-set_global_assignment -name VHDL_FILE VGA.vhd
-set_global_assignment -name VHDL_FILE vga_sync.vhd
-set_global_assignment -name VHDL_FILE square.vhd
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
-set_global_assignment -name QIP_FILE pll_25M.qip
 set_location_assignment PIN_G21 -to clk
 set_location_assignment PIN_L21 -to VGA_HS
 set_location_assignment PIN_L22 -to VGA_VS
@@ -82,19 +74,6 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
-set_global_assignment -name VHDL_FILE mem_color.vhd
-set_global_assignment -name VHDL_FILE debouncer_controller.vhd
-set_global_assignment -name VHDL_FILE debouncer.vhd
-set_global_assignment -name VHDL_FILE timer5ms.vhd
-set_global_assignment -name VHDL_FILE univ_bin_counter.vhd
-set_global_assignment -name VHDL_FILE columns_controller.vhd
-set_global_assignment -name VHDL_FILE control.vhd
-set_global_assignment -name VHDL_FILE timer10ms.vhd
-set_global_assignment -name VHDL_FILE control_fsm.vhd
-set_global_assignment -name VHDL_FILE addr_mem.vhd
-set_global_assignment -name VHDL_FILE control_memory.vhd
-set_global_assignment -name VHDL_FILE prueba_VGA.vhd
-set_global_assignment -name VHDL_FILE imagen_final.vhd
 set_location_assignment PIN_J6 -to rst
 set_location_assignment PIN_AB17 -to column1
 set_location_assignment PIN_AA18 -to column2
@@ -106,7 +85,6 @@ set_location_assignment PIN_T9 -to input3
 set_location_assignment PIN_T10 -to input4
 set_global_assignment -name ENABLE_SIGNALTAP ON
 set_global_assignment -name USE_SIGNALTAP_FILE signalTap/SignalTap_Control.stp
-set_global_assignment -name SIGNALTAP_FILE signalTap/SignalTap_Control.stp
 set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id auto_signaltap_0
 set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id auto_signaltap_0
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to clk -section_id auto_signaltap_0
@@ -329,8 +307,6 @@ set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to ena -section_id auto_signaltap_3
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=2048" -section_id auto_signaltap_3
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=2048" -section_id auto_signaltap_3
-set_global_assignment -name VHDL_FILE univ_bin_counter_tb.vhd
-set_global_assignment -name VHDL_FILE timer10ms_tb.vhd
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "pll_25M:PLL|c0" -section_id auto_signaltap_3
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to rst -section_id auto_signaltap_3
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "pll_25M:PLL|c0" -section_id auto_signaltap_3
@@ -341,10 +317,6 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=46" -section_id auto_signaltap_3
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_CRC_LOWORD=7046" -section_id auto_signaltap_3
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_CRC_HIWORD=49305" -section_id auto_signaltap_3
-set_global_assignment -name QIP_FILE pll_test.qip
-set_global_assignment -name VHDL_FILE teclado.vhd
-set_global_assignment -name VHDL_FILE my_dff.vhd
-set_global_assignment -name VHDL_FILE segmento.vhd
 set_location_assignment PIN_F13 -to unidades[6]
 set_location_assignment PIN_F12 -to unidades[5]
 set_location_assignment PIN_G12 -to unidades[4]
@@ -458,33 +430,7 @@ set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=4096
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_CRC_HIWORD=36637" -section_id auto_signaltap_4
 set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=4096" -section_id auto_signaltap_4
 set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT storage_enable -to auto_stp_external_storage_qualifier -section_id auto_signaltap_2
-set_global_assignment -name VHDL_FILE pantalla_comienzo.vhd
-set_global_assignment -name VHDL_FILE score_image.vhd
-set_global_assignment -name VHDL_FILE heart_image.vhd
-set_global_assignment -name VHDL_FILE number_image.vhd
-set_global_assignment -name VHDL_FILE fsm_snake_food.vhd
-set_global_assignment -name VHDL_FILE rand.vhd
-set_global_assignment -name VHDL_FILE my_dff_score.vhd
-set_global_assignment -name VHDL_FILE rand_tb.vhd
-set_global_assignment -name VHDL_FILE score_counter.vhd
-set_global_assignment -name VHDL_FILE timer_mov.vhd
-set_global_assignment -name VHDL_FILE bin_counter_rand.vhd
-set_global_assignment -name VHDL_FILE mem_pos_food.vhd
-set_global_assignment -name VHDL_FILE movimiento.vhd
-set_global_assignment -name VHDL_FILE snake_controller.vhd
-set_global_assignment -name VHDL_FILE my_reg.vhd
-set_global_assignment -name VHDL_FILE circular.vhd
-set_global_assignment -name VHDL_FILE register_file.vhd
-set_global_assignment -name VHDL_FILE fifo_ctrl.vhd
-set_global_assignment -name VHDL_FILE memoria_snake.vhd
-set_global_assignment -name VHDL_FILE snake.vhd
 
-set_global_assignment -name VHDL_FILE FOOD.vhd
-set_global_assignment -name VHDL_FILE FOOD_tb.vhd
-set_global_assignment -name VHDL_FILE snake_screen.vhd
-set_global_assignment -name VHDL_FILE conv_control.vhd
-set_global_assignment -name VHDL_FILE pos_divided.vhd
-set_global_assignment -name VHDL_FILE play_image.vhd
 set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
@@ -492,7 +438,42 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_location_assignment PIN_H5 -to stop
-set_global_assignment -name VHDL_FILE pos_multiplied.vhd
+set_location_assignment PIN_D2 -to selector_tablero[1]
+set_location_assignment PIN_E4 -to selector_tablero[0]
+set_global_assignment -name VHDL_FILE my_dff.vhd
+set_global_assignment -name VHDL_FILE univ_bin_counter.vhd
+set_global_assignment -name VHDL_FILE binary_bcd.vhd
+set_global_assignment -name VHDL_FILE score.vhd
+set_global_assignment -name VHDL_FILE VGA.vhd
+set_global_assignment -name VHDL_FILE vga_sync.vhd
+set_global_assignment -name QIP_FILE pll_25M.qip
+set_global_assignment -name VHDL_FILE debouncer_controller.vhd
+set_global_assignment -name VHDL_FILE debouncer.vhd
+set_global_assignment -name VHDL_FILE timer5ms.vhd
+set_global_assignment -name VHDL_FILE columns_controller.vhd
+set_global_assignment -name VHDL_FILE timer10ms.vhd
+set_global_assignment -name VHDL_FILE prueba_VGA.vhd
+set_global_assignment -name VHDL_FILE imagen_final.vhd
+set_global_assignment -name SIGNALTAP_FILE signalTap/SignalTap_Control.stp
+set_global_assignment -name QIP_FILE pll_test.qip
+set_global_assignment -name VHDL_FILE teclado.vhd
+set_global_assignment -name VHDL_FILE pantalla_comienzo.vhd
+set_global_assignment -name VHDL_FILE score_image.vhd
+set_global_assignment -name VHDL_FILE heart_image.vhd
+set_global_assignment -name VHDL_FILE number_image.vhd
+set_global_assignment -name VHDL_FILE my_dff_score.vhd
+set_global_assignment -name VHDL_FILE score_counter.vhd
+set_global_assignment -name VHDL_FILE timer_mov.vhd
+set_global_assignment -name VHDL_FILE movimiento.vhd
+set_global_assignment -name VHDL_FILE snake_controller.vhd
+set_global_assignment -name VHDL_FILE circular.vhd
+set_global_assignment -name VHDL_FILE register_file.vhd
+set_global_assignment -name VHDL_FILE fifo_ctrl.vhd
+set_global_assignment -name VHDL_FILE memoria_snake.vhd
+set_global_assignment -name VHDL_FILE snake.vhd
+set_global_assignment -name VHDL_FILE snake_screen.vhd
+set_global_assignment -name VHDL_FILE conv_control.vhd
+set_global_assignment -name VHDL_FILE pos_divided.vhd
 set_global_assignment -name VHDL_FILE obstacle_image.vhd
 set_global_assignment -name VHDL_FILE timer_score.vhd
 set_global_assignment -name VHDL_FILE obstacle_image_ref.vhd
@@ -500,9 +481,7 @@ set_global_assignment -name VHDL_FILE fsm_game.vhd
 set_global_assignment -name VHDL_FILE mem_timer.vhd
 set_global_assignment -name VHDL_FILE obstacle_image_1.vhd
 set_global_assignment -name VHDL_FILE obstacle_image_2.vhd
-set_location_assignment PIN_D2 -to selector_tablero[1]
-set_location_assignment PIN_E4 -to selector_tablero[0]
 set_global_assignment -name VHDL_FILE obstacle_image_1_ref.vhd
 set_global_assignment -name VHDL_FILE obstacle_image_2_ref.vhd
-set_global_assignment -name SLD_FILE db/SignalTap_Control_auto_stripped.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SLD_FILE db/SignalTap_Control_auto_stripped.stp

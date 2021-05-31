@@ -26,15 +26,11 @@ ARCHITECTURE structural OF snake_screen IS
 	SIGNAL pos_x_tablero_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL pos_y_tablero_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL tablero_snake_s		:	STD_LOGIC;
-	SIGNAL tablero_food_s		:	STD_LOGIC;
 	
 	SIGNAL pintar_x_s				:  STD_LOGIC_VECTOR(5 DOWNTO 0);
 	SIGNAL pintar_y_s				:  STD_LOGIC_VECTOR(5 DOWNTO 0);
-	SIGNAL comida_x_s				:  STD_LOGIC_VECTOR(5 DOWNTO 0);
-	SIGNAL comida_y_s				:  STD_LOGIC_VECTOR(5 DOWNTO 0);
 	SIGNAL we_s						:	STD_LOGIC;
 	SIGNAL pintar_despintar_s	:	STD_LOGIC;
-	SIGNAL comida_dato_s			:	STD_LOGIC;
 	
 	SIGNAL new_data_s		:	STD_LOGIC;
 	SIGNAL but_value_s	:	STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -46,21 +42,13 @@ ARCHITECTURE structural OF snake_screen IS
 	
 	
 	SIGNAL max_tick_s	:	STD_LOGIC;
-	SIGNAL food_x_s	:	STD_LOGIC_VECTOR(7 DOWNTO 0);
-	SIGNAL food_y_s	:	STD_LOGIC_VECTOR(7 DOWNTO 0);
-	SIGNAL comida_s	:	STD_LOGIC;
 	SIGNAL dato_pintar_s	:	STD_LOGIC;
-	SIGNAL dato_comida_s	:	STD_LOGIC;
 	
 	SIGNAL mem_unidades_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL mem_decenas_s				:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL mem_centenas_s			:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	SIGNAL mem_unidades_miles_s	:	STD_LOGIC_VECTOR(3 DOWNTO 0);
 	
-	SIGNAL comer_s	:	STD_LOGIC;
-	
-	SIGNAL we_comida_s	:	STD_LOGIC;
-	SIGNAL pintar_despintar_comida_s	:	STD_LOGIC;
 	SIGNAL ena_save_s:	STD_LOGIC;
 	SIGNAL obstacle:	STD_LOGIC;
 	
@@ -102,9 +90,6 @@ ARCHITECTURE structural OF snake_screen IS
 				pos_x_tablero 	=> pos_x_tablero_s,
 				pos_y_tablero 	=> pos_y_tablero_s,
 				tablero_snake 	=> tablero_snake_s,
-				tablero_food	=> tablero_food_s,
-				food_x			=> food_x_s,
-				food_y			=> food_y_s,
 				selector_tablero	=> selector_tablero);
 				
 	MEM_SNAKE : ENTITY work.memoria_snake
@@ -113,15 +98,10 @@ ARCHITECTURE structural OF snake_screen IS
 				 pintar_x	 		=>	pintar_x_s,		
 				 pintar_y 			=>	pintar_y_s,			
 				 pantalla_x 		=>	pos_x_tablero_s,		
-				 pantalla_y			=>	pos_y_tablero_s,						
-				 comida_x			=> food_x_s(5 DOWNTO 0),	
-				 comida_y			=>	food_y_s(5 DOWNTO 0),		
+				 pantalla_y			=>	pos_y_tablero_s,								
 				 we		 			=>	we_s,
-				 we_comida			=> we_comida_s,
 				 pintar_despintar => pintar_despintar_s,
-				 pintar_despintar_comida => pintar_despintar_comida_s,
-				 pantalla_dato		=>	tablero_snake_s,
-				 comida_dato   	=>	comida_dato_s);
+				 pantalla_dato		=>	tablero_snake_s);
 						
 	TECL : ENTITY work.teclado
 	PORT MAP(clk 			=> clk,
@@ -159,9 +139,6 @@ ARCHITECTURE structural OF snake_screen IS
 				buttonDown   	=> buttonDown_s,
 				buttonLeft   	=> buttonLeft_s,
 				buttonRight  	=> buttonRight_s,
-				food_x		=> food_x_s(5 DOWNTO 0),
-				food_y		=> food_y_s(5 DOWNTO 0),
-				comida		=> comida_s,
 				mem_unidades=>mem_unidades_s,
 				mem_decenas=>mem_decenas_s,
 				mem_centenas=>mem_centenas_s,

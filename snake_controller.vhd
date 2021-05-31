@@ -15,17 +15,13 @@ ENTITY snake_controller IS
 				ena_timer		:	OUT		STD_LOGIC;
 				syn_clr_timer	:	OUT		STD_LOGIC;
 				max_tick			:  IN 	STD_LOGIC;
-				buttonUp, buttonDown, buttonLeft, buttonRight : IN STD_LOGIC;
-				food_x			  :	IN 	STD_LOGIC_VECTOR(5 DOWNTO 0);
-				food_y			  :	IN 	STD_LOGIC_VECTOR(5 DOWNTO 0);
-				comida			  :	OUT 	STD_LOGIC);
+				buttonUp, buttonDown, buttonLeft, buttonRight : IN STD_LOGIC);
 				
 END ENTITY snake_controller;
 ----------------------------------------------------------------
 ARCHITECTURE fsm OF snake_controller IS
 	TYPE state IS (inicio, espera, pintar, despintar, arriba, abajo, izquierda, derecha,stop_state,obtener_cola);
 	SIGNAL pr_state, nx_state	: state;
-	SIGNAL previous_mov	: state;
 	
 	SIGNAL direccion : STD_LOGIC_VECTOR(3 DOWNTO 0);
 	
@@ -63,7 +59,7 @@ BEGIN
 	-------------------------------------------------------------
 	--                 UPPER SECTION OF FSM                    --
 	-------------------------------------------------------------
-	combinational: PROCESS(pr_state, max_tick,direccion,stop,previous_mov)
+	combinational: PROCESS(pr_state, max_tick,direccion,stop)
 	BEGIN
 		CASE pr_state IS
 			WHEN inicio =>
@@ -118,7 +114,6 @@ BEGIN
 				selector_y <= "00";
 				wr_signal <= '0';
 				rd_signal <= '0';
-				previous_mov <= derecha;
 				nx_state <= pintar;
 			WHEN izquierda	=>
 				we <= '0';
@@ -128,7 +123,6 @@ BEGIN
 				selector_y <= "00";
 				wr_signal <= '0';
 				rd_signal <= '0';
-				previous_mov <= izquierda;
 				nx_state <= pintar;
 			WHEN arriba =>
 				we <= '0';
@@ -138,7 +132,6 @@ BEGIN
 				selector_y <= "01";
 				wr_signal <= '0';
 				rd_signal <= '0';
-				previous_mov <= arriba;
 				nx_state <= pintar;
 			WHEN abajo =>
 				we <= '0';
@@ -148,7 +141,6 @@ BEGIN
 				selector_y <= "10";
 				wr_signal <= '0';
 				rd_signal <= '0';
-				previous_mov <= abajo;
 				nx_state <= pintar;
 			WHEN pintar => 
 				pintar_x <= x_signal;
@@ -215,12 +207,4 @@ BEGIN
 				 full			 =>	full_s,
 				 empty       =>	empty_s);
 				 
-	PROCESS(x_signal,y_signal,food_x, food_y)
-	BEGIN
-		IF (x_signal = food_x AND y_signal = food_y) THEN
-			comida <= '1';
-		ELSE 
-			comida <= '0';
-		END IF;
-	END PROCESS;
 END ARCHITECTURE fsm;

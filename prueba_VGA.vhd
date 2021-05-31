@@ -17,9 +17,6 @@ ENTITY prueba_VGA IS
 				pos_x_tablero		: 	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				pos_y_tablero		: 	OUT 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				tablero_snake		:	IN		STD_LOGIC;
-				food_x			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-				food_y			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-				tablero_food		:	IN		STD_LOGIC;
 				selector_tablero 		:  IN 	STD_LOGIC_VECTOR(1 downto 0)
 	);
 END ENTITY prueba_VGA;
@@ -31,9 +28,6 @@ ARCHITECTURE structural OF prueba_VGA IS
 	SIGNAL y_sub_s 		: STD_LOGIC;
 	
 	SIGNAL button_s 		: STD_LOGIC_VECTOR(3 DOWNTO 0);
-	
-	SIGNAL x_out_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
-	SIGNAL y_out_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 
 	SIGNAL pos_out_x_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL pos_out_y_s 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
@@ -65,8 +59,6 @@ BEGIN
 		
 	IMG_FINAL: ENTITY work.imagen_final
 	PORT MAP(		clk 				=> clk,
-						x 					=> x_out_s,
-						y 					=> y_out_s,
 						pos_x 			=> pos_out_x_s,
 						pos_y 			=> pos_out_y_s,
 						R 					=> R_in_s,
@@ -78,9 +70,6 @@ BEGIN
 						miles 			=> miles,
 						decenas_miles 	=> decenas_miles,
 						tablero_snake	=> tablero_snake,
-						tablero_food	=> tablero_food,
-						food_x			=> food_x,
-						food_y			=> food_y,
 						selector_tablero	=> selector_tablero);
 						
 	DIVIDED: ENTITY work.pos_divided

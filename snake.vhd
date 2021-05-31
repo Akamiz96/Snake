@@ -16,9 +16,6 @@ ENTITY snake IS
 				we						:  OUT  	STD_LOGIC;
 				pintar_despintar	: 	OUT	STD_LOGIC;
 				buttonUp, buttonDown, buttonLeft, buttonRight : IN STD_LOGIC;
-				food_x			  :	IN 	STD_LOGIC_VECTOR(5 DOWNTO 0);
-				food_y			  :	IN 	STD_LOGIC_VECTOR(5 DOWNTO 0);
-				comida			  :	OUT 	STD_LOGIC;
 				mem_unidades		:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
 				mem_decenas				:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
 				mem_centenas				:  OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -89,8 +86,6 @@ ARCHITECTURE structural OF snake IS
 	CONSTANT OCHO	:  STD_LOGIC_VECTOR(3 downto 0):= "1000";
 	CONSTANT NUEVE	:  STD_LOGIC_VECTOR(3 downto 0):= "1001";
 	--
-	
-	SIGNAL syn_timer_mov		:	STD_LOGIC;
 	SIGNAL syn_change_time		:	STD_LOGIC;
 
  BEGIN 
@@ -102,8 +97,6 @@ ARCHITECTURE structural OF snake IS
 		
 	stop_snake <= stop OR choque; 
 	
-	syn_timer_mov <= syn_tb OR syn_change_time;
-	
 	obstacle <= obstacle_1 WHEN selector_tablero = "00" ELSE 
 					obstacle_2 WHEN selector_tablero = "01" ELSE
 					obstacle_3 WHEN selector_tablero = "10" ELSE
@@ -114,7 +107,7 @@ ARCHITECTURE structural OF snake IS
 	mem_centenas <= mem_centenas_s;
 	mem_unidades_miles <= mem_unidades_miles_s;
 	puntaje <= mem_unidades_miles_s & mem_centenas_s & mem_decenas_s & mem_unidades_s;
-	PROCESS(puntaje)
+	PROCESS(clk,puntaje)
 	VARIABLE selector_timer_anterior : STD_LOGIC_VECTOR(2 downto 0) := "000";
 	BEGIN
 		IF (rising_edge(clk)) THEN
@@ -172,10 +165,7 @@ ARCHITECTURE structural OF snake IS
 				buttonUp     =>   buttonUp,
 				buttonDown   =>   buttonDown,
 				buttonLeft   =>   buttonLeft,
-				buttonRight  =>   buttonRight,
-				food_x		=> food_x,
-				food_y		=> food_y,
-				comida		=> comida);
+				buttonRight  =>   buttonRight);
 				
 	TMR: 		ENTITY work.timer_mov
 			PORT MAP(  	clk	=> clk,

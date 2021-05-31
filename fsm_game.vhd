@@ -38,7 +38,7 @@ BEGIN
 	-------------------------------------------------------------
 	--                 UPPER SECTION OF FSM                    --
 	-------------------------------------------------------------
-	combinational: PROCESS(pr_state,max_tick_tmr,stop)
+	combinational: PROCESS(pr_state,max_tick_tmr,stop,obstacle)
 	BEGIN
 		CASE pr_state IS
 			WHEN inicio => 

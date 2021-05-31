@@ -14,7 +14,7 @@ ARCHITECTURE structural OF pos_divided IS
 	SIGNAL pos_x_operated 		: STD_LOGIC_VECTOR(9 DOWNTO 0);
  BEGIN 
 	
-	PROCESS(pos_x, pos_y)
+	PROCESS(pos_y,limite_y,pos_x,limite_x)
 	BEGIN
 		pos_y_operated <= std_logic_vector((unsigned(pos_y)-unsigned(limite_y))/10);
 		pos_x_operated <= std_logic_vector((unsigned(pos_x)-unsigned(limite_x))/10);

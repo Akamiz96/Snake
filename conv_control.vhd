@@ -18,7 +18,7 @@ BEGIN
 	-------------------------------------------------------------
 	--                 LOWER SECTION OF FSM                    --
 	-------------------------------------------------------------
-	sequential: PROCESS(clk)
+	sequential: PROCESS(clk,rst)
 	BEGIN
 		IF (rst = '1') THEN
 			pr_state	<=	waiting;

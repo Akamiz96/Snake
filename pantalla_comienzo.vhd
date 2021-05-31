@@ -8,14 +8,11 @@ ENTITY pantalla_comienzo IS
 				pos_x, pos_y		: 	IN 	STD_LOGIC_VECTOR(9 DOWNTO 0);
 				R, G, B 				: 	OUT 	STD_LOGIC_VECTOR(3 DOWNTO 0);
 				tablero_snake		:	IN		STD_LOGIC;
-				tablero_food		:	IN		STD_LOGIC;
 				unidades 			:  IN		STD_LOGIC_VECTOR(3 downto 0);
 				decenas 				:  IN 	STD_LOGIC_VECTOR(3 downto 0);
 				centenas 			:  IN  	STD_LOGIC_VECTOR(3 downto 0);
 				miles 				:  IN		STD_LOGIC_VECTOR(3 downto 0);
 				decenas_miles 		:  IN 	STD_LOGIC_VECTOR(3 downto 0);
-				food_x			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
-				food_y			  :	IN 	STD_LOGIC_VECTOR(7 DOWNTO 0);
 				selector_tablero 		:  IN 	STD_LOGIC_VECTOR(1 downto 0)
 	);
 END ENTITY pantalla_comienzo;
@@ -79,7 +76,7 @@ ARCHITECTURE structural OF pantalla_comienzo IS
 					obstacle_3 WHEN selector_tablero = "10" ELSE
 					obstacle_1 WHEN selector_tablero = "11";
 
-	PROCESS(clk, pos_x, pos_y,tablero_snake,tablero_food)
+	PROCESS(clk, pos_x, pos_y,tablero_snake)
 	BEGIN
 		IF (rising_edge(clk)) THEN
 			-- Borde exterior	
